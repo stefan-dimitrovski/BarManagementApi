@@ -15,7 +15,8 @@ data class Order(
     val openedAt: LocalDateTime = LocalDateTime.now(),
     @Column(name = "closed_at")
     val closedAt: LocalDateTime? = null,
-//    @Column(name = "table_id")
     @OneToOne
-    val tableId: TableDomain,
+    val table: TableDomain,
+    @ManyToOne
+    val waiter: User
 )

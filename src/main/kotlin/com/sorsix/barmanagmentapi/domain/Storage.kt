@@ -4,13 +4,14 @@ import javax.persistence.*
 import javax.persistence.Table
 
 @Entity
-@Table(name = "tables")
-data class Table(
+@Table(name = "storage")
+data class Storage(
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     val id: Long,
-    @Column(name = "is_open")
-    val isOpen: Boolean,
     @ManyToOne
-    val waiter: User
+    val locale: Locale,
+    @ManyToOne
+    val drink: Drink,
+    val quantity: Int,
 )

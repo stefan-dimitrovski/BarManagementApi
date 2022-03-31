@@ -4,13 +4,17 @@ import javax.persistence.*
 import javax.persistence.Table
 
 @Entity
-@Table(name = "drinks")
-data class Drink(
+@Table(name = "users")
+data class User(
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     val id: Long,
-    @Column(name = "brand_name")
-    val brandName: String,
+    val email: String,
+    val password: String,
+    val name: String,
+    val phoneNumber: String,
     @Enumerated(EnumType.STRING)
-    val category: DrinkCategory
+    val role: Role,
+    @OneToMany
+    val locale: List<Locale>
 )
