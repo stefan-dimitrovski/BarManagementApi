@@ -1,0 +1,22 @@
+-- CREATE TABLE drinks
+-- (
+--     id       BIGSERIAL PRIMARY KEY NOT NULL,
+--     category TEXT                  NOT NULL
+-- );
+--
+-- CREATE TABLE orders
+-- (
+--     id        BIGSERIAL PRIMARY KEY NOT NULL,
+--     opened_at TIMESTAMP             NOT NULL,
+--     closed_at TIMESTAMP             NULL,
+--     table_id  BIGINT               NOT NULL
+-- );
+--
+-- CREATE TABLE tables
+-- (
+--     id      BIGSERIAL PRIMARY KEY NOT NULL,
+--     is_open BOOLEAN               NOT NULL
+-- );
+--
+-- ALTER TABLE orders
+--     ADD FOREIGN KEY (table_id) REFERENCES tables (id)
