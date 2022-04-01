@@ -12,5 +12,5 @@ data class Table(
     @Column(name = "is_open")
     var isOpen: Boolean,
     @ManyToOne
-    val waiter: User
+    val waiter: User?
 )
