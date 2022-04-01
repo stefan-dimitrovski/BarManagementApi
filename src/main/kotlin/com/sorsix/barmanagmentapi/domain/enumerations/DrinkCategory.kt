@@ -1,4 +1,4 @@
-package com.sorsix.barmanagmentapi.domain
+package com.sorsix.barmanagmentapi.domain.enumerations
 
 enum class DrinkCategory {
     WHISKEY,
