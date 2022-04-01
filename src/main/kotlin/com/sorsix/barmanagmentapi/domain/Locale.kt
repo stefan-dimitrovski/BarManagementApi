@@ -11,6 +11,8 @@ data class Locale(
     val id: Long,
     val address: String,
     val name: String,
+    val lat: String,
+    val lng: String,
     @OneToMany
     val waiters: List<User>
 )

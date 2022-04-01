@@ -6,6 +6,7 @@ import com.sorsix.barmanagmentapi.repository.TableRepository
 import com.sorsix.barmanagmentapi.repository.UserRepository
 import org.springframework.stereotype.Service
 import java.time.LocalDateTime
+import javax.transaction.Transactional
 
 @Service
 class OrderService(
@@ -19,6 +20,7 @@ class OrderService(
     fun findOrderById(id: Long): Order? =
         orderRepository.findById(id).orElseGet(null)
 
+    @Transactional
     fun openOrder(tableId: Long, waiterId: Long): Order {
         val table = tableRepository.findById(tableId).get()
         table.isOpen = false
@@ -27,6 +29,7 @@ class OrderService(
         return orderRepository.save(order)
     }
 
+    @Transactional
     fun closeOrder(orderId: Long): Order {
         val order = findOrderById(orderId)!!
         order.table.isOpen = true
