@@ -21,6 +21,7 @@ class OrderService(
 
     fun openOrder(tableId: Long, waiterId: Long): Order {
         val table = tableRepository.findById(tableId).get()
+        table.isOpen = false
         val waiter = userRepository.findById(waiterId).get()
         val order = Order(table = table, waiter = waiter)
         return orderRepository.save(order)
@@ -28,6 +29,7 @@ class OrderService(
 
     fun closeOrder(orderId: Long): Order {
         val order = findOrderById(orderId)!!
+        order.table.isOpen = true
         order.closedAt = LocalDateTime.now()
         return order
     }

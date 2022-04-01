@@ -1,5 +1,6 @@
 package com.sorsix.barmanagmentapi.domain
 
+import com.sorsix.barmanagmentapi.domain.enumerations.DrinkCategory
 import javax.persistence.*
 import javax.persistence.Table
 

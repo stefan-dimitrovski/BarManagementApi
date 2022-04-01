@@ -10,7 +10,7 @@ data class Table(
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     val id: Long,
     @Column(name = "is_open")
-    val isOpen: Boolean,
+    var isOpen: Boolean,
     @ManyToOne
     val waiter: User
 )
