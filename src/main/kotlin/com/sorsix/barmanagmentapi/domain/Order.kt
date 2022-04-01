@@ -10,13 +10,13 @@ import com.sorsix.barmanagmentapi.domain.Table as TableDomain
 data class Order(
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    val id: Long,
+    val id: Long? = null,
     @Column(name = "opened_at")
     val openedAt: LocalDateTime = LocalDateTime.now(),
     @Column(name = "closed_at")
-    val closedAt: LocalDateTime? = null,
-    @OneToOne
+    var closedAt: LocalDateTime? = null,
+    @OneToOne(fetch = FetchType.EAGER)
     val table: TableDomain,
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.EAGER)
     val waiter: User
 )
