@@ -10,6 +10,8 @@ class TableService(val tableRepository: TableRepository) {
 
     fun getTables(): List<Table> = tableRepository.findAll()
 
+    fun getTableById(id: Long): Table? = tableRepository.getById(id)
+
     @Transactional
     fun updateIsOpen(tableId: Long, isOpen: Boolean) {
         tableRepository.updateIsOpen(tableId, isOpen)
