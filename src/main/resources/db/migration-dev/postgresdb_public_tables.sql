@@ -1,0 +1,13 @@
+INSERT INTO public.tables (id, is_open, waiter_id) VALUES (1, false, 1);
+INSERT INTO public.tables (id, is_open, waiter_id) VALUES (2, true, null);
+INSERT INTO public.tables (id, is_open, waiter_id) VALUES (3, true, null);
+INSERT INTO public.tables (id, is_open, waiter_id) VALUES (4, true, null);
+INSERT INTO public.tables (id, is_open, waiter_id) VALUES (5, true, null);
+INSERT INTO public.tables (id, is_open, waiter_id) VALUES (6, false, 2);
+INSERT INTO public.tables (id, is_open, waiter_id) VALUES (7, true, null);
+INSERT INTO public.tables (id, is_open, waiter_id) VALUES (8, true, null);
+INSERT INTO public.tables (id, is_open, waiter_id) VALUES (9, true, null);
+INSERT INTO public.tables (id, is_open, waiter_id) VALUES (10, true, null);
+INSERT INTO public.tables (id, is_open, waiter_id) VALUES (11, true, null);
+INSERT INTO public.tables (id, is_open, waiter_id) VALUES (12, true, null);
+INSERT INTO public.tables (id, is_open, waiter_id) VALUES (13, true, null);
