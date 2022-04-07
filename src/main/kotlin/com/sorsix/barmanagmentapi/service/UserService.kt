@@ -14,4 +14,7 @@ class UserService(
 
     fun findUserByEmail(email: String): User? =
         this.userRepository.findByEmail(email)
+
+    fun getUserById(id: Long): User =
+        this.userRepository.getById(id)
 }

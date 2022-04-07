@@ -1,5 +1,6 @@
 package com.sorsix.barmanagmentapi.domain
 
+import com.fasterxml.jackson.annotation.JsonIgnore
 import com.sorsix.barmanagmentapi.domain.enumerations.Role
 import com.sorsix.barmanagmentapi.passwordEncoder
 import javax.persistence.Column
@@ -29,6 +30,8 @@ data class User(
 ) {
     @Column
     var password = ""
+        @JsonIgnore
+        get() = field
         set(value) {
             field = passwordEncoder().encode(value)
         }
