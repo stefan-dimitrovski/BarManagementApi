@@ -12,5 +12,4 @@ class OrderController(val orderService: OrderService) {
 
     @GetMapping
     fun getOrders() = orderService.getAllOrders()
-
 }

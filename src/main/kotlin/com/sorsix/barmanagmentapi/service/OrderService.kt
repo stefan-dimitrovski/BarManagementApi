@@ -36,5 +36,4 @@ class OrderService(
         order.closedAt = LocalDateTime.now()
         return order
     }
-
 }

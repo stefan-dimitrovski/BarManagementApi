@@ -8,5 +8,4 @@ import org.springframework.stereotype.Service
 class LocaleService(val localeRepository: LocaleRepository) {
 
     fun getAllLocales(): List<Locale> = localeRepository.findAll()
-
 }

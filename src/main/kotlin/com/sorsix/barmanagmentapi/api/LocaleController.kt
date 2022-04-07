@@ -13,5 +13,4 @@ class LocaleController(val localeService: LocaleService) {
 
     @GetMapping
     fun getLocales() = localeService.getAllLocales()
-
 }

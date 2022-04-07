@@ -31,5 +31,4 @@ class TableController(
     fun closeTable(@PathVariable id: Long) {
         tableService.updateIsOpen(id, false)
     }
-
 }

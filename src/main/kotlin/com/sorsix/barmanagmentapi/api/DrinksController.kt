@@ -12,5 +12,4 @@ class DrinksController(val drinkService: DrinkService) {
 
     @GetMapping
     fun getDrinks(): List<Drink> = drinkService.getAllDrinks()
-
 }

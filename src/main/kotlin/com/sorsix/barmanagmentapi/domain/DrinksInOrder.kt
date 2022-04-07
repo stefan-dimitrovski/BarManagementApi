@@ -1,11 +1,16 @@
 package com.sorsix.barmanagmentapi.domain
 
-import javax.persistence.*
+import javax.persistence.Entity
+import javax.persistence.GeneratedValue
+import javax.persistence.Id
+import javax.persistence.GenerationType
+import javax.persistence.ManyToOne
 import javax.persistence.Table
+
 
 @Entity
 @Table(name = "drinks_in_order")
-data class DrinksInOrder(
+private data class DrinksInOrder(
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     val id: Long,

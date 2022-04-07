@@ -8,5 +8,4 @@ import org.springframework.stereotype.Service
 class DrinkService(val drinkRepository: DrinkRepository) {
 
     fun getAllDrinks(): List<Drink> = drinkRepository.findAll()
-
 }
