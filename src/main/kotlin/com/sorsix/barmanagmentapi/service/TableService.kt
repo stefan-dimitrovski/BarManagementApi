@@ -6,7 +6,7 @@ import org.springframework.stereotype.Service
 import javax.transaction.Transactional
 
 @Service
-class TableService(val tableRepository: TableRepository) {
+class TableService(private val tableRepository: TableRepository) {
 
     fun getTables(): List<Table> = tableRepository.findAll()
 

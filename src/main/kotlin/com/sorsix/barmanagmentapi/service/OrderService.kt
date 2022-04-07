@@ -10,9 +10,9 @@ import javax.transaction.Transactional
 
 @Service
 class OrderService(
-    val orderRepository: OrderRepository,
-    val tableRepository: TableRepository,
-    val userRepository: UserRepository
+    private val orderRepository: OrderRepository,
+    private val tableRepository: TableRepository,
+    private val userRepository: UserRepository
 ) {
 
     fun getAllOrders(): List<Order> = orderRepository.findAll()

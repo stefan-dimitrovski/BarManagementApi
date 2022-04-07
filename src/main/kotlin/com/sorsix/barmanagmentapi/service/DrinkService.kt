@@ -5,7 +5,7 @@ import com.sorsix.barmanagmentapi.repository.DrinkRepository
 import org.springframework.stereotype.Service
 
 @Service
-class DrinkService(val drinkRepository: DrinkRepository) {
+class DrinkService(private val drinkRepository: DrinkRepository) {
 
     fun getAllDrinks(): List<Drink> = drinkRepository.findAll()
 }

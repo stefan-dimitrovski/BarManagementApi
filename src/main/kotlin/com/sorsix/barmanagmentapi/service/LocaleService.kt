@@ -5,7 +5,7 @@ import com.sorsix.barmanagmentapi.repository.LocaleRepository
 import org.springframework.stereotype.Service
 
 @Service
-class LocaleService(val localeRepository: LocaleRepository) {
+class LocaleService(private val localeRepository: LocaleRepository) {
 
     fun getAllLocales(): List<Locale> = localeRepository.findAll()
 }

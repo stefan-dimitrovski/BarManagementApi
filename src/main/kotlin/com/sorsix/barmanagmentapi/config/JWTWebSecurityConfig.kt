@@ -12,7 +12,6 @@ import org.springframework.security.config.http.SessionCreationPolicy
 @EnableWebSecurity
 @EnableGlobalMethodSecurity(securedEnabled = true, prePostEnabled = true)
 class JWTWebSecurityConfig(
-    private val passwordEncoder: PasswordEncoderConfig,
     private val userService: UserService
 ) : WebSecurityConfigurerAdapter() {
 
