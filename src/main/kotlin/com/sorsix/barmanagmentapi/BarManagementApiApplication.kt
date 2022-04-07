@@ -4,8 +4,8 @@ import org.springframework.boot.autoconfigure.SpringBootApplication
 import org.springframework.boot.runApplication
 
 @SpringBootApplication
-class BarManagmentApiApplication
+class BarManagementApiApplication
 
 fun main(args: Array<String>) {
-    runApplication<BarManagmentApiApplication>(*args)
+    runApplication<BarManagementApiApplication>(*args)
 }
