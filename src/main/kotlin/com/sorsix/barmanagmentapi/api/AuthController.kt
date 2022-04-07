@@ -22,7 +22,8 @@ import javax.servlet.http.HttpServletResponse
 class AuthController(private val userService: UserService) {
 
     private val secret =
-        "secretsafljfasdlkfjasdflkjsdaflsafsdafsdfahasdfhasdfhjsdfghjfasdhgjasdfhgjasdfghjasdfgjasdfghjasghjdfasfghjdasfghjdghjasfdghjasdfghjasdfghasdfghsdfaghasfdghjasdfghjasdfghj"
+        "secretsafljfasdlkfjasdflkjsdaflsafsdafsdfahasdfhasdfhjsdfghjfasdhgjasdfhgjasdfghjasdfgjasd" +
+                "fghjasghjdfasfghjdasfghjdghjasfdghjasdfghjasdfghasdfghsdfaghasfdghjasdfghjasdfghj"
 
     @PostMapping("/register")
     fun register(@RequestBody body: RegisterDTO): ResponseEntity<User> {
@@ -42,7 +43,7 @@ class AuthController(private val userService: UserService) {
             if (!it.comparePassword(body.password)) {
                 ResponseEntity.badRequest().body("Incorrect password")
             } else {
-                //TODO: IMPROVE THIS
+                // TODO: IMPROVE THIS
                 val issuer = it.id.toString()
                 val jwt =
                     Jwts.builder()
@@ -65,7 +66,7 @@ class AuthController(private val userService: UserService) {
 
     @GetMapping("/user")
     fun getCurrentUser(@CookieValue("jwt") jwt: String?): ResponseEntity<Any> =
-        //TODO: IMPROVE THIS
+        // TODO: IMPROVE THIS
         try {
             jwt?.let {
                 val body = Jwts.parser().setSigningKey(secret).parseClaimsJws(jwt).body
