@@ -26,6 +26,7 @@ class JWTWebSecurityConfig(
                 "/api/account/home",
                 "/api/logout"
             ).permitAll()
+//            .hasAuthority(Role.MANAGER.name)
             .anyRequest()
             .authenticated()
             .and()

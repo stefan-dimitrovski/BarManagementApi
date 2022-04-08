@@ -1,6 +1,6 @@
 package com.sorsix.barmanagmentapi.domain.enumerations
 
-enum class Role {
+enum class Role{
     MANAGER,
     WAITER
 }
