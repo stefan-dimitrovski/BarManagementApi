@@ -35,9 +35,8 @@ data class User(
     @OneToMany
     val locale: List<Locale>? = null
 ) : UserDetails {
-
     override fun getAuthorities(): MutableCollection<out GrantedAuthority> =
-        mutableListOf(SimpleGrantedAuthority(role.name))
+        mutableListOf(SimpleGrantedAuthority(this.role.toString()))
 
     override fun getUsername(): String = email
 

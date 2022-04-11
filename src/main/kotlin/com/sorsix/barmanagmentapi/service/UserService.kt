@@ -16,8 +16,10 @@ class UserService(
 ) : UserDetailsService {
     private val logger = LoggerFactory.getLogger(UserService::class.java)
 
-    override fun loadUserByUsername(username: String): UserDetails? =
+    override fun loadUserByUsername(username: String): User? =
         userRepository.findByEmail(username)
+
+
 
     fun save(userDto: RegisterDTO): User =
         userRepository.save(
@@ -27,7 +29,6 @@ class UserService(
                 name = userDto.name
             )
         )
-
 
     fun findUserByEmail(email: String): User? =
         this.userRepository.findByEmail(email)

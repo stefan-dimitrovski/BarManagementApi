@@ -8,7 +8,7 @@ data class RegisterDTO(
     @get:Email
     val email: String,
 
-    @get:Size(min = 6, max = 100)
+    @get:Size(min = 5, max = 100)
     val password: String,
 
     @get:Size(min = 4, max = 50)
