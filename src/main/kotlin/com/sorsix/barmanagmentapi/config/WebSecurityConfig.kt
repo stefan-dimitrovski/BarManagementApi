@@ -36,7 +36,7 @@ class WebSecurityConfig(
         http.exceptionHandling().authenticationEntryPoint(UnauthorizedAuthenticationEntryPoint())
         http.cors().and().csrf().disable().authorizeRequests()
             .antMatchers("/api/account/**").permitAll()
-            .antMatchers( "/api/tables/**").hasAnyAuthority("WAITER")
+            .antMatchers("/api/tables/**").hasAnyAuthority("WAITER")
             .antMatchers("/api/locales/create").hasAnyAuthority("MANAGER")
             .and()
             .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
@@ -49,6 +49,4 @@ class WebSecurityConfig(
     override fun authenticationManagerBean(): AuthenticationManager {
         return super.authenticationManagerBean()
     }
-
-
 }

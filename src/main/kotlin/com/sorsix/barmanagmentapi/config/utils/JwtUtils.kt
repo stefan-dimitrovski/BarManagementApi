@@ -1,14 +1,13 @@
-package com.sorsix.barmanagmentapi.config
+package com.sorsix.barmanagmentapi.config.utils
 
+import com.sorsix.barmanagmentapi.config.JwtConstants
 import com.sorsix.barmanagmentapi.domain.User
 import io.jsonwebtoken.*
 import org.slf4j.Logger
 import org.slf4j.LoggerFactory
 import org.springframework.security.core.Authentication
-import org.springframework.security.core.userdetails.UserDetails
 import org.springframework.stereotype.Service
 import java.util.*
-
 
 @Service
 class JwtUtils {
@@ -33,11 +32,9 @@ class JwtUtils {
         try {
             Jwts.parser().setSigningKey(JwtConstants.SECRET).parseClaimsJws(authToken)
             return true
-        } catch (e: Exception){
+        } catch (e: Exception) {
             logger.error("JWT token is invalid")
         }
         return false
     }
-
-
 }

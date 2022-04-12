@@ -1,7 +1,7 @@
 package com.sorsix.barmanagmentapi.api
 
 import com.sorsix.barmanagmentapi.api.response.LoginResponse
-import com.sorsix.barmanagmentapi.config.JwtUtils
+import com.sorsix.barmanagmentapi.config.utils.JwtUtils
 import com.sorsix.barmanagmentapi.domain.User
 import com.sorsix.barmanagmentapi.dto.LoginDTO
 import com.sorsix.barmanagmentapi.dto.RegisterDTO
@@ -15,7 +15,6 @@ import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.bind.annotation.RestController
 import javax.servlet.http.HttpServletRequest
 import javax.validation.Valid
-
 
 @RestController
 @RequestMapping("/api/account")
@@ -41,7 +40,6 @@ class AuthController(
         )
         val user = userService.loadUserByUsername(request.email)
         val jwt = jwtToken.generateJwtToken(auth)
-        return ResponseEntity.ok(LoginResponse(jwt,user!!))
+        return ResponseEntity.ok(LoginResponse(jwt, user!!))
     }
-
 }

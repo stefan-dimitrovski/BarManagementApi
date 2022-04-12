@@ -1,4 +1,3 @@
 package com.sorsix.barmanagmentapi.domain.exceptions
 
-class InvalidCredentialsException: Exception() {
-}
+class InvalidCredentialsException: Exception()

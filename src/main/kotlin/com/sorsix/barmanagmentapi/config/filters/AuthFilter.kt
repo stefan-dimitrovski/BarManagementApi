@@ -1,7 +1,7 @@
 package com.sorsix.barmanagmentapi.config.filters
 
 import com.sorsix.barmanagmentapi.config.JwtConstants
-import com.sorsix.barmanagmentapi.config.JwtUtils
+import com.sorsix.barmanagmentapi.config.utils.JwtUtils
 import com.sorsix.barmanagmentapi.service.UserService
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken
 import org.springframework.security.core.context.SecurityContextHolder
@@ -12,7 +12,6 @@ import org.springframework.web.filter.OncePerRequestFilter
 import javax.servlet.FilterChain
 import javax.servlet.http.HttpServletRequest
 import javax.servlet.http.HttpServletResponse
-
 
 @Component
 class AuthFilter(
@@ -50,6 +49,4 @@ class AuthFilter(
             headerAuth.substring(7, headerAuth.length)
         } else null
     }
-
-
 }
