@@ -18,7 +18,7 @@ import javax.validation.constraints.Size
 data class User(
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    val id: Long? = null,
+    val id: Long = 0L,
     @NotBlank
     @Email
     @Column(unique = true)

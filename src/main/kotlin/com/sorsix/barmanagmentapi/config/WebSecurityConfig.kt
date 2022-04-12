@@ -28,21 +28,20 @@ class WebSecurityConfig(
     }
 
     override fun configure(webSecurity: WebSecurity) {
-        webSecurity.ignoring().antMatchers("/api/account/register")
+        webSecurity.ignoring().antMatchers("/api/register")
     }
 
     @Throws(Exception::class)
     override fun configure(http: HttpSecurity) {
         http.exceptionHandling().authenticationEntryPoint(UnauthorizedAuthenticationEntryPoint())
         http.cors().and().csrf().disable().authorizeRequests()
-            .antMatchers("/api/account/**").permitAll()
+            .antMatchers("/api/**").permitAll()
             .antMatchers("/api/tables/**").hasAnyAuthority("WAITER")
             .antMatchers("/api/locales/create").hasAnyAuthority("MANAGER")
             .and()
             .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
 
         http.addFilterBefore(authFilter, UsernamePasswordAuthenticationFilter::class.java)
-
     }
 
     @Bean

@@ -2,13 +2,13 @@ package com.sorsix.barmanagmentapi.api
 
 import com.sorsix.barmanagmentapi.api.response.LoginResponse
 import com.sorsix.barmanagmentapi.config.utils.JwtUtils
-import com.sorsix.barmanagmentapi.domain.User
 import com.sorsix.barmanagmentapi.dto.LoginDTO
 import com.sorsix.barmanagmentapi.dto.RegisterDTO
 import com.sorsix.barmanagmentapi.service.UserService
 import org.springframework.http.ResponseEntity
 import org.springframework.security.authentication.AuthenticationManager
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken
+import org.springframework.web.bind.annotation.CrossOrigin
 import org.springframework.web.bind.annotation.PostMapping
 import org.springframework.web.bind.annotation.RequestBody
 import org.springframework.web.bind.annotation.RequestMapping
@@ -17,7 +17,8 @@ import javax.servlet.http.HttpServletRequest
 import javax.validation.Valid
 
 @RestController
-@RequestMapping("/api/account")
+@RequestMapping("/api")
+@CrossOrigin
 class AuthController(
     val userService: UserService,
     val authManager: AuthenticationManager,
@@ -28,9 +29,9 @@ class AuthController(
     fun createUser(
         @RequestBody @Valid registerDto: RegisterDTO,
         request: HttpServletRequest
-    ): ResponseEntity<User> {
-        val user = userService.save(registerDto)
-        return ResponseEntity.ok(user)
+    ): ResponseEntity<Any> {
+        this.userService.save(registerDto)
+        return ResponseEntity.ok().build()
     }
 
     @PostMapping("/login")
@@ -38,8 +39,8 @@ class AuthController(
         val auth = this.authManager.authenticate(
             UsernamePasswordAuthenticationToken(request.email, request.password)
         )
-        val user = userService.loadUserByUsername(request.email)
+        val user = userService.loadUserByUsername(request.email)!!
         val jwt = jwtToken.generateJwtToken(auth)
-        return ResponseEntity.ok(LoginResponse(jwt, user!!))
+        return ResponseEntity.ok(LoginResponse(jwt, user.id, user.email, user.name))
     }
 }
