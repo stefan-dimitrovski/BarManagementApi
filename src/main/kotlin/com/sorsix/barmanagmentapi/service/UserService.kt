@@ -18,7 +18,7 @@ class UserService(
     override fun loadUserByUsername(username: String): User? =
         userRepository.findByEmail(username)
 
-    fun save(userDto: RegisterDTO): User =
+    fun registerUser(userDto: RegisterDTO): User =
         userRepository.save(
             User(
                 email = userDto.email,

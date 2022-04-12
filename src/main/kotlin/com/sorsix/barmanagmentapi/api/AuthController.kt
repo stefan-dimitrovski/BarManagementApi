@@ -5,6 +5,8 @@ import com.sorsix.barmanagmentapi.config.utils.JwtUtils
 import com.sorsix.barmanagmentapi.dto.LoginDTO
 import com.sorsix.barmanagmentapi.dto.RegisterDTO
 import com.sorsix.barmanagmentapi.service.UserService
+import org.slf4j.Logger
+import org.slf4j.LoggerFactory
 import org.springframework.http.ResponseEntity
 import org.springframework.security.authentication.AuthenticationManager
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken
@@ -24,13 +26,14 @@ class AuthController(
     val authManager: AuthenticationManager,
     val jwtToken: JwtUtils
 ) {
+    val logger: Logger = LoggerFactory.getLogger(AuthController::class.java)
 
     @PostMapping("/register")
     fun createUser(
         @RequestBody @Valid registerDto: RegisterDTO,
         request: HttpServletRequest
     ): ResponseEntity<Any> {
-        this.userService.save(registerDto)
+        this.userService.registerUser(registerDto)
         return ResponseEntity.ok().build()
     }
 
@@ -41,6 +44,8 @@ class AuthController(
         )
         val user = userService.loadUserByUsername(request.email)!!
         val jwt = jwtToken.generateJwtToken(auth)
+
+        logger.info("User logged in ${user.email}")
         return ResponseEntity.ok(LoginResponse(jwt, user.id, user.email, user.name))
     }
 }
