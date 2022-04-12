@@ -1,6 +1,7 @@
 package com.sorsix.barmanagmentapi.api
 
 import com.sorsix.barmanagmentapi.api.response.AccountResponse
+import com.sorsix.barmanagmentapi.api.response.LoginResponse
 import com.sorsix.barmanagmentapi.api.response.RegisterSuccess
 import com.sorsix.barmanagmentapi.config.JwtUtils
 import com.sorsix.barmanagmentapi.dto.LoginDTO
@@ -35,13 +36,13 @@ class AccountController(
     }
 
     @PostMapping("/login")
-    fun login(@RequestBody request: LoginDTO): ResponseEntity<Any> {
+    fun login(@RequestBody request: LoginDTO): ResponseEntity<LoginResponse> {
         val auth = this.authManager.authenticate(
             UsernamePasswordAuthenticationToken(request.email, request.password)
         )
         val user = userService.loadUserByUsername(request.email)
         val jwt = jwtToken.generateJwtToken(auth)
-        return ResponseEntity.ok(jwt to user)
+        return ResponseEntity.ok(LoginResponse(jwt,user!!))
     }
 
 }

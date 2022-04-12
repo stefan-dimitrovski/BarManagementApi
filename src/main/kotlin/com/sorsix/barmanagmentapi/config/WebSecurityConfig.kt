@@ -1,11 +1,9 @@
 package com.sorsix.barmanagmentapi.config
 
 import com.sorsix.barmanagmentapi.config.filters.AuthFilter
-import com.sorsix.barmanagmentapi.domain.enumerations.Role
 import com.sorsix.barmanagmentapi.service.UserService
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
-import org.springframework.http.HttpMethod
 import org.springframework.security.authentication.AuthenticationManager
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity
@@ -22,7 +20,7 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 class WebSecurityConfig(
     private val userService: UserService,
     private val passwordEncoder: PasswordEncoderConfig,
-    private val filter: AuthFilter
+    private val authFilter: AuthFilter
 ) : WebSecurityConfigurerAdapter() {
 
     override fun configure(auth: AuthenticationManagerBuilder) {
@@ -38,14 +36,12 @@ class WebSecurityConfig(
         http.exceptionHandling().authenticationEntryPoint(UnauthorizedAuthenticationEntryPoint())
         http.cors().and().csrf().disable().authorizeRequests()
             .antMatchers("/api/account/**").permitAll()
-            .antMatchers(HttpMethod.GET, "/api/tables/**").hasAnyAuthority("WAITER")
-            .antMatchers("/api/locales/create").hasAnyAuthority("WAITER")
+            .antMatchers( "/api/tables/**").hasAnyAuthority("WAITER")
+            .antMatchers("/api/locales/create").hasAnyAuthority("MANAGER")
             .and()
-//            .addFilter(JwtAuthenticationFilter(authenticationManager(), userService))
-//            .addFilter(JwtAuthorizationFilter(userService, authenticationManager()))
             .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
 
-        http.addFilterBefore(filter, UsernamePasswordAuthenticationFilter::class.java)
+        http.addFilterBefore(authFilter, UsernamePasswordAuthenticationFilter::class.java)
 
     }
 

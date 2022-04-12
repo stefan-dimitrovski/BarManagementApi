@@ -5,7 +5,6 @@ import com.sorsix.barmanagmentapi.config.JwtUtils
 import com.sorsix.barmanagmentapi.service.UserService
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken
 import org.springframework.security.core.context.SecurityContextHolder
-import org.springframework.security.core.userdetails.UserDetails
 import org.springframework.security.web.authentication.WebAuthenticationDetailsSource
 import org.springframework.stereotype.Component
 import org.springframework.util.StringUtils
@@ -46,7 +45,7 @@ class AuthFilter(
     }
 
     private fun parseJwt(request: HttpServletRequest): String? {
-        val headerAuth = request.getHeader("Authorization")
+        val headerAuth = request.getHeader(JwtConstants.HEADER_STRING)
         return if (StringUtils.hasText(headerAuth) && headerAuth.startsWith(JwtConstants.TOKEN_PREFIX)) {
             headerAuth.substring(7, headerAuth.length)
         } else null

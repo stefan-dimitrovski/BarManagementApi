@@ -13,7 +13,6 @@ class LocaleService(private val localeRepository: LocaleRepository) {
     fun createLocale(localeReq: CreateLocaleRequest): Locale {
         return localeRepository.save(
             Locale(
-                id = 0,
                 address = localeReq.address,
                 lat = localeReq.lat,
                 lng = localeReq.lng,

@@ -12,7 +12,7 @@ import javax.persistence.Table
 data class Locale(
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    val id: Long,
+    val id: Long? = null,
     val address: String,
     val name: String,
     val lat: Double,
