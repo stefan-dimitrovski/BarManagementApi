@@ -1,9 +1,8 @@
 package com.sorsix.barmanagmentapi.api
 
-import com.sorsix.barmanagmentapi.api.response.AccountResponse
 import com.sorsix.barmanagmentapi.api.response.LoginResponse
-import com.sorsix.barmanagmentapi.api.response.RegisterSuccess
 import com.sorsix.barmanagmentapi.config.JwtUtils
+import com.sorsix.barmanagmentapi.domain.User
 import com.sorsix.barmanagmentapi.dto.LoginDTO
 import com.sorsix.barmanagmentapi.dto.RegisterDTO
 import com.sorsix.barmanagmentapi.service.UserService
@@ -20,7 +19,7 @@ import javax.validation.Valid
 
 @RestController
 @RequestMapping("/api/account")
-class AccountController(
+class AuthController(
     val userService: UserService,
     val authManager: AuthenticationManager,
     val jwtToken: JwtUtils
@@ -30,9 +29,9 @@ class AccountController(
     fun createUser(
         @RequestBody @Valid registerDto: RegisterDTO,
         request: HttpServletRequest
-    ): ResponseEntity<AccountResponse> {
+    ): ResponseEntity<User> {
         val user = userService.save(registerDto)
-        return ResponseEntity.ok(RegisterSuccess(user))
+        return ResponseEntity.ok(user)
     }
 
     @PostMapping("/login")

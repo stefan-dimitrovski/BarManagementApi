@@ -5,7 +5,6 @@ import com.sorsix.barmanagmentapi.domain.User
 import com.sorsix.barmanagmentapi.dto.RegisterDTO
 import com.sorsix.barmanagmentapi.repository.UserRepository
 import org.slf4j.LoggerFactory
-import org.springframework.security.core.userdetails.UserDetails
 import org.springframework.security.core.userdetails.UserDetailsService
 import org.springframework.stereotype.Service
 
@@ -19,8 +18,6 @@ class UserService(
     override fun loadUserByUsername(username: String): User? =
         userRepository.findByEmail(username)
 
-
-
     fun save(userDto: RegisterDTO): User =
         userRepository.save(
             User(
@@ -29,11 +26,5 @@ class UserService(
                 name = userDto.name
             )
         )
-
-    fun findUserByEmail(email: String): User? =
-        this.userRepository.findByEmail(email)
-
-    fun getUserById(id: Long): User =
-        this.userRepository.getById(id)
 
 }
