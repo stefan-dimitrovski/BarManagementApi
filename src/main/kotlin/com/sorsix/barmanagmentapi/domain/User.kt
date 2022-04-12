@@ -1,5 +1,6 @@
 package com.sorsix.barmanagmentapi.domain
 
+import com.fasterxml.jackson.annotation.JsonIgnore
 import com.sorsix.barmanagmentapi.domain.enumerations.Role
 import org.springframework.security.core.GrantedAuthority
 import org.springframework.security.core.authority.SimpleGrantedAuthority
@@ -25,6 +26,7 @@ data class User(
     val email: String,
     @NotBlank
     @Size(min = 8, max = 100)
+    @JsonIgnore
     private val password: String,
     @NotBlank
     @Size(min = 2, max = 100)
