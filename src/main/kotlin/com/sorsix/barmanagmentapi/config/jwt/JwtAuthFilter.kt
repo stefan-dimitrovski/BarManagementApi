@@ -1,7 +1,5 @@
-package com.sorsix.barmanagmentapi.config.filters
+package com.sorsix.barmanagmentapi.config.jwt
 
-import com.sorsix.barmanagmentapi.config.JwtConstants
-import com.sorsix.barmanagmentapi.config.utils.JwtUtils
 import com.sorsix.barmanagmentapi.service.UserService
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken
 import org.springframework.security.core.context.SecurityContextHolder
@@ -14,9 +12,9 @@ import javax.servlet.http.HttpServletRequest
 import javax.servlet.http.HttpServletResponse
 
 @Component
-class AuthFilter(
+class JwtAuthFilter(
     val userService: UserService,
-    val jwtUtils: JwtUtils
+    val jwtUtil: JwtUtil
 ) : OncePerRequestFilter() {
 
     override fun doFilterInternal(
@@ -26,8 +24,8 @@ class AuthFilter(
     ) {
         try {
             val jwt = parseJwt(request)
-            if (jwt != null && jwtUtils.validateJwtToken(jwt)) {
-                val username: String = jwtUtils.generateUsernameToken(jwt)
+            if (jwt != null && jwtUtil.validateJwtToken(jwt)) {
+                val username: String = jwtUtil.generateUsernameToken(jwt)
                 val userDetails = userService.loadUserByUsername(username)
                 val authentication = UsernamePasswordAuthenticationToken(
                     userDetails,

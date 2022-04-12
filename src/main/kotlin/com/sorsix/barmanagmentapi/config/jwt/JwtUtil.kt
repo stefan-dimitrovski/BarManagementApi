@@ -1,6 +1,5 @@
-package com.sorsix.barmanagmentapi.config.utils
+package com.sorsix.barmanagmentapi.config.jwt
 
-import com.sorsix.barmanagmentapi.config.JwtConstants
 import com.sorsix.barmanagmentapi.domain.User
 import io.jsonwebtoken.*
 import org.slf4j.Logger
@@ -10,9 +9,9 @@ import org.springframework.stereotype.Service
 import java.util.*
 
 @Service
-class JwtUtils {
+class JwtUtil {
 
-    private val logger: Logger = LoggerFactory.getLogger(JwtUtils::class.java)
+    private val logger: Logger = LoggerFactory.getLogger(JwtUtil::class.java)
 
     fun generateJwtToken(authentication: Authentication): String {
         val userPrincipal: User = authentication.principal as User

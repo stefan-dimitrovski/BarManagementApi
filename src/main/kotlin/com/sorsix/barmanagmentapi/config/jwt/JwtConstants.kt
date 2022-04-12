@@ -1,4 +1,4 @@
-package com.sorsix.barmanagmentapi.config
+package com.sorsix.barmanagmentapi.config.jwt
 
 class JwtConstants {
     companion object {

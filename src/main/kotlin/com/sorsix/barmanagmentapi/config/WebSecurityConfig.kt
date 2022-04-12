@@ -1,6 +1,6 @@
 package com.sorsix.barmanagmentapi.config
 
-import com.sorsix.barmanagmentapi.config.filters.AuthFilter
+import com.sorsix.barmanagmentapi.config.jwt.JwtAuthFilter
 import com.sorsix.barmanagmentapi.service.UserService
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
@@ -20,7 +20,7 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 class WebSecurityConfig(
     private val userService: UserService,
     private val passwordEncoder: PasswordEncoderConfig,
-    private val authFilter: AuthFilter
+    private val authFilter: JwtAuthFilter
 ) : WebSecurityConfigurerAdapter() {
 
     override fun configure(auth: AuthenticationManagerBuilder) {

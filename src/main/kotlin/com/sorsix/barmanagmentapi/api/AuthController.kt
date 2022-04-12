@@ -1,7 +1,7 @@
 package com.sorsix.barmanagmentapi.api
 
 import com.sorsix.barmanagmentapi.api.response.LoginResponse
-import com.sorsix.barmanagmentapi.config.utils.JwtUtils
+import com.sorsix.barmanagmentapi.config.jwt.JwtUtil
 import com.sorsix.barmanagmentapi.dto.LoginDTO
 import com.sorsix.barmanagmentapi.dto.RegisterDTO
 import com.sorsix.barmanagmentapi.service.UserService
@@ -24,7 +24,7 @@ import javax.validation.Valid
 class AuthController(
     val userService: UserService,
     val authManager: AuthenticationManager,
-    val jwtToken: JwtUtils
+    val jwtToken: JwtUtil
 ) {
     val logger: Logger = LoggerFactory.getLogger(AuthController::class.java)
 
