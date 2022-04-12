@@ -4,7 +4,7 @@ import com.sorsix.barmanagmentapi.api.response.LoginResponse
 import com.sorsix.barmanagmentapi.config.jwt.JwtUtil
 import com.sorsix.barmanagmentapi.dto.LoginDTO
 import com.sorsix.barmanagmentapi.dto.RegisterDTO
-import com.sorsix.barmanagmentapi.service.UserService
+import com.sorsix.barmanagmentapi.service.AuthService
 import org.slf4j.Logger
 import org.slf4j.LoggerFactory
 import org.springframework.http.ResponseEntity
@@ -22,7 +22,7 @@ import javax.validation.Valid
 @RequestMapping("/api/auth")
 @CrossOrigin
 class AuthController(
-    val userService: UserService,
+    val authService: AuthService,
     val authManager: AuthenticationManager,
     val jwtToken: JwtUtil
 ) {
@@ -33,7 +33,7 @@ class AuthController(
         @RequestBody @Valid registerDto: RegisterDTO,
         request: HttpServletRequest
     ): ResponseEntity<Any> {
-        this.userService.registerUser(registerDto)
+        this.authService.registerUser(registerDto)
         return ResponseEntity.ok().build()
     }
 
@@ -42,7 +42,7 @@ class AuthController(
         val auth = this.authManager.authenticate(
             UsernamePasswordAuthenticationToken(request.email, request.password)
         )
-        val user = userService.loadUserByUsername(request.email)!!
+        val user = authService.loadUserByUsername(request.email)!!
         val jwt = jwtToken.generateJwtToken(auth)
 
         logger.info("User logged in ${user.email}")

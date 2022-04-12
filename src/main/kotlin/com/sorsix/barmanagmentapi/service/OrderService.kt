@@ -3,7 +3,7 @@ package com.sorsix.barmanagmentapi.service
 import com.sorsix.barmanagmentapi.domain.Order
 import com.sorsix.barmanagmentapi.repository.OrderRepository
 import com.sorsix.barmanagmentapi.repository.TableRepository
-import com.sorsix.barmanagmentapi.repository.UserRepository
+import com.sorsix.barmanagmentapi.repository.AuthRepository
 import org.springframework.stereotype.Service
 import java.time.LocalDateTime
 import javax.transaction.Transactional
@@ -12,7 +12,7 @@ import javax.transaction.Transactional
 class OrderService(
     private val orderRepository: OrderRepository,
     private val tableRepository: TableRepository,
-    private val userRepository: UserRepository
+    private val authRepository: AuthRepository
 ) {
 
     fun getAllOrders(): List<Order> = orderRepository.findAll()
@@ -24,7 +24,7 @@ class OrderService(
     fun openOrder(tableId: Long, waiterId: Long): Order {
         val table = tableRepository.findById(tableId).get()
         table.isOpen = false
-        val waiter = userRepository.findById(waiterId).get()
+        val waiter = authRepository.findById(waiterId).get()
         val order = Order(table = table, waiter = waiter)
         return orderRepository.save(order)
     }
