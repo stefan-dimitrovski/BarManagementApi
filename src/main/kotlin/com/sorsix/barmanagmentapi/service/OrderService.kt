@@ -5,7 +5,6 @@ import com.sorsix.barmanagmentapi.repository.OrderRepository
 import com.sorsix.barmanagmentapi.repository.TableRepository
 import com.sorsix.barmanagmentapi.repository.AuthRepository
 import org.springframework.stereotype.Service
-import java.time.LocalDateTime
 import javax.transaction.Transactional
 
 @Service
@@ -20,20 +19,22 @@ class OrderService(
     fun findOrderById(id: Long): Order? =
         orderRepository.findById(id).orElseGet(null)
 
+    fun getOrderByTableId(tableId: Long): Order? = orderRepository.getOrderByTableId(tableId)
+
     @Transactional
     fun openOrder(tableId: Long, waiterId: Long): Order {
         val table = tableRepository.findById(tableId).get()
-        table.isOpen = false
         val waiter = authRepository.findById(waiterId).get()
         val order = Order(table = table, waiter = waiter)
+        tableRepository.updateTable(tableId, waiterId)
         return orderRepository.save(order)
     }
 
     @Transactional
-    fun closeOrder(orderId: Long): Order {
-        val order = findOrderById(orderId)!!
-        order.table.isOpen = true
-        order.closedAt = LocalDateTime.now()
-        return order
-    }
+    fun closeOrder(orderId: Long) =
+        this.findOrderById(orderId)?.let {
+            orderRepository.updateClosedAt(orderId)
+            tableRepository.updateTable(it.table.id, it.waiter.id)
+        }
+
 }

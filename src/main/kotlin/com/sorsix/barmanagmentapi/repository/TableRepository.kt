@@ -10,6 +10,6 @@ import org.springframework.stereotype.Repository
 interface TableRepository : JpaRepository<Table, Long> {
 
     @Modifying
-    @Query("update Table t set t.isOpen = :isOpen where t.id = :tableId")
-    fun updateIsOpen(tableId: Long, isOpen: Boolean)
+    @Query("update Table t set t.waiter.id = :waiterId where t.id = :tableId")
+    fun updateTable(tableId: Long, waiterId: Long)
 }
