@@ -30,7 +30,7 @@ class JwtAuthFilter(
                 val authentication = UsernamePasswordAuthenticationToken(
                     userDetails,
                     null,
-                    userDetails!!.authorities //TO DO
+                    userDetails!!.authorities //TODO
                 )
                 authentication.details = WebAuthenticationDetailsSource().buildDetails(request)
                 SecurityContextHolder.getContext().authentication = authentication
