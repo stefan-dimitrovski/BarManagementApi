@@ -16,6 +16,10 @@ class EmployeeService(
         return this.employeeRepository.findByRole()
     }
 
+    fun findEmployeeById(employeeId: Long): User {
+        return this.employeeRepository.findById(employeeId).get()
+    }
+
     @Transactional
     fun addEmployeeToLocale(employeeId: Long, localeId: Long): Boolean {
         val employee = this.employeeRepository.findById(employeeId).get()
