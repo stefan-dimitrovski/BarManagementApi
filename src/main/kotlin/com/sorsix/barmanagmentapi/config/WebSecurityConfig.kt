@@ -8,7 +8,6 @@ import org.springframework.security.authentication.AuthenticationManager
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity
 import org.springframework.security.config.annotation.web.builders.HttpSecurity
-import org.springframework.security.config.annotation.web.builders.WebSecurity
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter
 import org.springframework.security.config.http.SessionCreationPolicy
@@ -27,17 +26,13 @@ class WebSecurityConfig(
         auth.userDetailsService(authService).passwordEncoder(passwordEncoder.passwordEncoder())
     }
 
-    override fun configure(webSecurity: WebSecurity) {
-        webSecurity.ignoring().antMatchers("/api/register")
-    }
-
-    @Throws(Exception::class)
     override fun configure(http: HttpSecurity) {
-        http.exceptionHandling().authenticationEntryPoint(UnauthorizedAuthenticationEntryPoint())
         http.cors().and().csrf().disable().authorizeRequests()
-            .antMatchers("/api/**").permitAll()
-            .antMatchers("/api/tables/**").hasAnyAuthority("WAITER")
-            .antMatchers("/api/locales/create").hasAnyAuthority("MANAGER")
+            .antMatchers("/api/auth/**").permitAll()
+            .antMatchers("/api/tables/**").hasAnyAuthority("WAITER", "MANAGER")
+            .antMatchers("/api/drinks/**").hasAnyAuthority("WAITER", "MANAGER")
+            .antMatchers("/api/locales/**").hasAuthority("MANAGER")
+            .antMatchers("/api/employees/**").hasAuthority("MANAGER")
             .and()
             .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
 

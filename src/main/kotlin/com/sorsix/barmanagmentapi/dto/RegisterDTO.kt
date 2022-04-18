@@ -13,4 +13,6 @@ data class RegisterDTO(
 
     @get:Size(min = 4, max = 50)
     val name: String,
+
+    val phoneNumber: String,
 )

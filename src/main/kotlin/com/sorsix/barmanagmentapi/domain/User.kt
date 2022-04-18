@@ -11,7 +11,6 @@ import javax.validation.constraints.Email
 import javax.validation.constraints.NotBlank
 import javax.validation.constraints.Size
 
-
 @Entity
 @Table(
     name = "users"
@@ -35,7 +34,9 @@ data class User(
     @Enumerated(EnumType.STRING)
     val role: Role = Role.WAITER,
     @OneToMany
-    val locale: List<Locale>? = null
+    val managesLocales: List<Locale>? = null,
+    @ManyToOne
+    var worksInLocale: Locale? = null
 ) : UserDetails {
     override fun getAuthorities(): MutableCollection<out GrantedAuthority> =
         mutableListOf(SimpleGrantedAuthority(this.role.toString()))

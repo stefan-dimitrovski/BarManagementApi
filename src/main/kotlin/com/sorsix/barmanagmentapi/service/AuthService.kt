@@ -23,7 +23,8 @@ class AuthService(
             User(
                 email = userDto.email,
                 password = passwordEncoder.passwordEncoder().encode(userDto.password),
-                name = userDto.name
+                name = userDto.name,
+                phoneNumber = userDto.phoneNumber,
             )
         )
 }

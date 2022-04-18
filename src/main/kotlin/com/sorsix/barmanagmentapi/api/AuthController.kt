@@ -46,6 +46,6 @@ class AuthController(
         val jwt = jwtToken.generateJwtToken(auth)
 
         logger.info("User logged in ${user.email}")
-        return ResponseEntity.ok(LoginResponse(jwt, user.id, user.email, user.name))
+        return ResponseEntity.ok(LoginResponse(jwt, user.id, user.email, user.name, user.role, user.worksInLocale))
     }
 }
