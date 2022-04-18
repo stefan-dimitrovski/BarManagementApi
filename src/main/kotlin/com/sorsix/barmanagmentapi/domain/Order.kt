@@ -22,6 +22,8 @@ data class Order(
     val openedAt: LocalDateTime = LocalDateTime.now(),
     @Column(name = "closed_at")
     var closedAt: LocalDateTime? = null,
+    @Column(name = "total_price")
+    val totalPrice: Double = 0.0,
     @OneToOne(fetch = FetchType.EAGER)
     val table: TableDomain,
     @ManyToOne(fetch = FetchType.EAGER)

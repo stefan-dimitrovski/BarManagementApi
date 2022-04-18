@@ -6,6 +6,7 @@ import com.sorsix.barmanagmentapi.service.OrderService
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.*
 
+@CrossOrigin
 @RestController
 @RequestMapping("/api/tables/{tableId}/orders")
 class OrderController(val orderService: OrderService) {
