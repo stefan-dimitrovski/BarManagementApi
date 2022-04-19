@@ -8,6 +8,7 @@ import javax.persistence.GeneratedValue
 import javax.persistence.GenerationType
 import javax.persistence.Id
 import javax.persistence.ManyToOne
+import javax.persistence.OneToMany
 import javax.persistence.OneToOne
 import javax.persistence.Table
 import com.sorsix.barmanagmentapi.domain.Table as TableDomain
@@ -27,6 +28,8 @@ data class Order(
     @OneToOne(fetch = FetchType.EAGER)
     val table: TableDomain,
     @ManyToOne(fetch = FetchType.EAGER)
-    val waiter: User
+    val waiter: User,
+    @OneToMany(fetch = FetchType.EAGER)
+    val drinks: List<Drink>
 
 )

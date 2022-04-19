@@ -25,7 +25,7 @@ class OrderService(
     fun openOrder(tableId: Long, waiterId: Long): Order {
         val table = tableRepository.findById(tableId).get()
         val waiter = authRepository.findById(waiterId).get()
-        val order = Order(table = table, waiter = waiter)
+        val order = Order(table = table, waiter = waiter, drinks = listOf())
         tableRepository.updateTable(tableId, waiterId)
         return orderRepository.save(order)
     }
@@ -34,7 +34,7 @@ class OrderService(
     fun closeOrder(orderId: Long) =
         this.findOrderById(orderId)?.let {
             orderRepository.updateClosedAt(orderId)
-            tableRepository.updateTable(it.table.id, it.waiter.id)
+            tableRepository.updateTable(it.table.id, null)
         }
 
 }

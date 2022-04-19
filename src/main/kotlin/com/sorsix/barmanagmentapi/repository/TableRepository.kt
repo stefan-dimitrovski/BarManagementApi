@@ -11,5 +11,5 @@ interface TableRepository : JpaRepository<Table, Long> {
 
     @Modifying
     @Query("update Table t set t.waiter.id = :waiterId where t.id = :tableId")
-    fun updateTable(tableId: Long, waiterId: Long)
+    fun updateTable(tableId: Long, waiterId: Long?)
 }

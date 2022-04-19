@@ -22,5 +22,6 @@ data class Drink(
     @Enumerated(EnumType.STRING)
     val category: DrinkCategory,
     @NotNull
-    val price: Double
+    val price: Double,
+
 )
