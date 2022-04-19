@@ -1,6 +1,6 @@
 package com.sorsix.barmanagmentapi.dto
 
-data class EmployeeLocaleRequest(
+data class EmployeeLocaleDTO(
     val employeeId: Long,
     val localeId: Long,
 )
