@@ -11,4 +11,7 @@ interface StorageRepository : JpaRepository<Storage, Long> {
     @Query("update Storage s set s.quantity=:quantity where s.locale.id=:localeId and s.drink.id=:drinkId")
     fun updateStorageQuantity(localeId: Long, drinkId: Long, quantity: Int)
 
+
+    fun findByDrinkIdAndLocaleId(drinkId: Long, localeId: Long) : Storage?
+
 }

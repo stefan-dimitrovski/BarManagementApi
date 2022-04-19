@@ -1,8 +1,8 @@
 package com.sorsix.barmanagmentapi.service
 
-import com.sorsix.barmanagmentapi.repository.DrinkRepository
-import com.sorsix.barmanagmentapi.repository.OrderRepository
-import com.sorsix.barmanagmentapi.repository.StorageRepository
+import com.sorsix.barmanagmentapi.domain.DrinksInOrder
+import com.sorsix.barmanagmentapi.dto.DrinksInOrderRequest
+import com.sorsix.barmanagmentapi.repository.*
 import org.springframework.stereotype.Service
 import javax.transaction.Transactional
 
@@ -10,17 +10,45 @@ import javax.transaction.Transactional
 class DrinksInOrderService(
     private val orderRepository: OrderRepository,
     private val drinkRepository: DrinkRepository,
-    private val storageRepository: StorageRepository
+    private val drinksInOrderRepository: DrinksInOrderRepository,
+    private val localeRepository: LocaleRepository
 ) {
 
     @Transactional
-    fun addDrinkToOrder(drinkId: Long, orderId: Long, quantity: Int) {
-        val drink = drinkRepository.getById(drinkId)
-        val order = orderRepository.getOrderById(orderId)
-        val localeId = order?.table?.waiter?.worksInLocale
+    fun addDrinkToOrder(drinksInOrderRequest: DrinksInOrderRequest) {
+        val drinkId = drinksInOrderRequest.drinkId
+        val orderId = drinksInOrderRequest.orderId
+        val localeId = drinksInOrderRequest.localeId
+        val quantity = drinksInOrderRequest.quantity
 
-//        order
-//        storageRepository.updateStorageQuantity(localeId,)
+        drinksInOrderRepository.findByDrinkIdAndOrderId(drinkId, orderId)?.let { drinkInOrder ->
+            {
+                drinkRepository.getDrinkById(drinkInOrder.drink.id)?.let { drink ->
+                    {
+                        localeRepository.getLocaleById(localeId)?.let { locale ->
+                            {
+                                orderRepository.getOrderById(orderId)?.let { order ->
+                                    {
+                                        drinksInOrderRepository.save(
+                                            DrinksInOrder(
+                                                drink = drink,
+                                                order = order,
+                                                quantity = quantity,
+                                                locale = locale
+                                            )
+                                        )
+                                    }
+                                }
+
+                            }
+
+                        }
+                    }
+                }
+            }
+
+
+        }
 
 
     }
