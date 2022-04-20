@@ -14,20 +14,10 @@ import org.springframework.web.bind.annotation.RestController
 class TableController(
     val tableService: TableService
 ) {
-
     @GetMapping
     fun getAllTables(): List<Table> = tableService.getTables()
 
     @GetMapping("/{id}")
     fun getTableById(@PathVariable id: Long): Table? = tableService.getTableById(id)
 
-//    @PutMapping("/open/{id}")
-//    fun openTable(@PathVariable id: Long) {
-//        tableService.(id, true)
-//    }
-//
-//    @PutMapping("/close/{id}")
-//    fun closeTable(@PathVariable id: Long) {
-//        tableService.updateIsOpen(id, false)
-//    }
 }

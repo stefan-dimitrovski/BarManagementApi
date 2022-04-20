@@ -1,9 +1,9 @@
 package com.sorsix.barmanagmentapi.service
 
+import com.sorsix.barmanagmentapi.domain.DrinkInOrder
 import com.sorsix.barmanagmentapi.domain.Order
-import com.sorsix.barmanagmentapi.repository.OrderRepository
-import com.sorsix.barmanagmentapi.repository.TableRepository
-import com.sorsix.barmanagmentapi.repository.AuthRepository
+import com.sorsix.barmanagmentapi.domain.results.*
+import com.sorsix.barmanagmentapi.repository.*
 import org.springframework.stereotype.Service
 import javax.transaction.Transactional
 
@@ -11,8 +11,11 @@ import javax.transaction.Transactional
 class OrderService(
     private val orderRepository: OrderRepository,
     private val tableRepository: TableRepository,
-    private val authRepository: AuthRepository
-) {
+    private val authRepository: AuthRepository,
+    private val drinkRepository: DrinkRepository,
+    private val drinkInOrderRepository: DrinkInOrderRepository,
+
+    ) {
 
     fun getAllOrders(): List<Order> = orderRepository.findAll()
 
@@ -36,5 +39,20 @@ class OrderService(
             orderRepository.updateClosedAt(orderId)
             tableRepository.updateTable(it.table.id, null)
         }
+
+
+    @Transactional
+    fun addDrinkToOrder(orderId: Long, drinkId: Long): DrinkInOrder {
+        val order = orderRepository.getById(orderId)
+        val drink = drinkRepository.getById(drinkId)
+        return drinkInOrderRepository.save(DrinkInOrder(order = order, drink = drink))
+    }
+
+    fun updateQuantityForDrinkInOrder(orderId: Long, drinkId: Long, quantity: Int): DrinkInOrderResult =
+        drinkInOrderRepository.findByOrderIdAndDrinkId(orderId, drinkId)?.let {
+            drinkInOrderRepository.updateQuantity(it.id, quantity)
+            DrinkInOrderSuccess
+        } ?: DrinkInOrderNotFound
+
 
 }
