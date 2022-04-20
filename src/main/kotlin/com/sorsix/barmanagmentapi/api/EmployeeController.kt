@@ -6,10 +6,10 @@ import com.sorsix.barmanagmentapi.service.EmployeeService
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.CrossOrigin
 import org.springframework.web.bind.annotation.GetMapping
-import org.springframework.web.bind.annotation.PathVariable
 import org.springframework.web.bind.annotation.PutMapping
 import org.springframework.web.bind.annotation.RequestBody
 import org.springframework.web.bind.annotation.RequestMapping
+import org.springframework.web.bind.annotation.RequestParam
 import org.springframework.web.bind.annotation.RestController
 
 @RestController
@@ -18,14 +18,12 @@ import org.springframework.web.bind.annotation.RestController
 class EmployeeController(private val employeeService: EmployeeService) {
 
     @GetMapping
-    fun getEmployees(): List<User> {
-        return this.employeeService.getAllEmployees()
-    }
-
-    @GetMapping("/{id}")
-    fun getEmployee(@PathVariable id: Long): User {
-        return this.employeeService.findEmployeeById(id)
-    }
+    fun getEmployees(@RequestParam name: String?): List<User> =
+        name?.let {
+            this.employeeService.findEmployeesByName(name)
+        } ?: run {
+            this.employeeService.getAllEmployees()
+        }
 
     @PutMapping("/add-to-locale")
     fun addEmployeeToLocale(@RequestBody request: EmployeeLocaleDTO): ResponseEntity<Any> {

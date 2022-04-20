@@ -12,13 +12,11 @@ class EmployeeService(
     private val localeRepository: LocaleRepository
 ) {
 
-    fun getAllEmployees(): List<User> {
-        return this.employeeRepository.findByRole()
-    }
+    fun getAllEmployees(): List<User> =
+        this.employeeRepository.findByRole()
 
-    fun findEmployeeById(employeeId: Long): User {
-        return this.employeeRepository.findById(employeeId).get()
-    }
+    fun findEmployeesByName(name: String): List<User> =
+        this.employeeRepository.findByName(name.lowercase())
 
     @Transactional
     fun addEmployeeToLocale(employeeId: Long, localeId: Long): Boolean {
