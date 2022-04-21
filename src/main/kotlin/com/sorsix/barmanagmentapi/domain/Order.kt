@@ -7,6 +7,7 @@ import javax.persistence.FetchType
 import javax.persistence.GeneratedValue
 import javax.persistence.GenerationType
 import javax.persistence.Id
+import javax.persistence.ManyToMany
 import javax.persistence.ManyToOne
 import javax.persistence.OneToOne
 import javax.persistence.Table
@@ -17,7 +18,7 @@ import com.sorsix.barmanagmentapi.domain.Table as TableDomain
 data class Order(
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    val id: Long? = null,
+    val id: Long = 0L,
     @Column(name = "opened_at")
     val openedAt: LocalDateTime = LocalDateTime.now(),
     @Column(name = "closed_at")
@@ -25,5 +26,9 @@ data class Order(
     @OneToOne(fetch = FetchType.EAGER)
     val table: TableDomain,
     @ManyToOne(fetch = FetchType.EAGER)
-    val waiter: User
+    val waiter: User,
+    @ManyToMany(fetch = FetchType.EAGER)
+    val drinks: List<DrinkInOrder>
+
+
 )

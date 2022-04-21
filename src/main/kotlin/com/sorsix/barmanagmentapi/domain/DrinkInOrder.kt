@@ -9,13 +9,12 @@ import javax.persistence.Table
 
 @Entity
 @Table(name = "drinks_in_order")
-private data class DrinksInOrder(
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    val id: Long,
-    @ManyToOne
-    val drink: Drink,
+data class DrinkInOrder(
+    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
+    val id: Long = 0L,
     @ManyToOne
     val order: Order,
-    val quantity: Int,
+    @ManyToOne
+    val drink: Drink,
+    val quantity: Int = 0,
 )

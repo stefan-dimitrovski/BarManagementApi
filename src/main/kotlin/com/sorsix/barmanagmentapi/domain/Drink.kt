@@ -9,6 +9,7 @@ import javax.persistence.GeneratedValue
 import javax.persistence.GenerationType
 import javax.persistence.Id
 import javax.persistence.Table
+import javax.validation.constraints.NotNull
 
 @Entity
 @Table(name = "drinks")
@@ -19,5 +20,8 @@ data class Drink(
     @Column(name = "brand_name")
     val brandName: String,
     @Enumerated(EnumType.STRING)
-    val category: DrinkCategory
+    val category: DrinkCategory,
+    @NotNull
+    val price: Double,
+
 )
