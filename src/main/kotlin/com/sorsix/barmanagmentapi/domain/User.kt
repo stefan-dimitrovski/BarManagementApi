@@ -53,4 +53,3 @@ data class User(
 
     override fun isAccountNonLocked(): Boolean = true
 }
-

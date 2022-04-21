@@ -17,5 +17,4 @@ class LocaleController(val localeService: LocaleService) {
     @PostMapping("/create")
     fun createArticle(@RequestBody request: CreateLocaleRequest): ResponseEntity<Locale> =
         ResponseEntity.ok(localeService.createLocale(request))
-
 }
