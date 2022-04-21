@@ -16,7 +16,6 @@ class JwtAuthFilter(
     val authService: AuthService,
     val jwtUtil: JwtUtil
 ) : OncePerRequestFilter() {
-
     override fun doFilterInternal(
         request: HttpServletRequest,
         response: HttpServletResponse,
@@ -30,7 +29,7 @@ class JwtAuthFilter(
                 val authentication = UsernamePasswordAuthenticationToken(
                     userDetails,
                     null,
-                    userDetails!!.authorities //TODO
+                    userDetails!!.authorities
                 )
                 authentication.details = WebAuthenticationDetailsSource().buildDetails(request)
                 SecurityContextHolder.getContext().authentication = authentication
