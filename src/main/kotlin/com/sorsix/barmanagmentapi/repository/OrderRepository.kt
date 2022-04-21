@@ -17,4 +17,5 @@ interface OrderRepository : JpaRepository<Order, Long> {
     fun updateClosedAt(orderId: Long, time: LocalDateTime = LocalDateTime.now())
 
 
+    fun getAllByTableIdAndWaiterId(tableId: Long, waiterId: Long)
 }

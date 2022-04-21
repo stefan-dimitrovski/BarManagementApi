@@ -9,4 +9,5 @@ interface StorageRepository : JpaRepository<Storage, Long> {
 
     fun findByDrinkIdAndLocaleId(drinkId: Long, localeId: Long) : Storage?
 
+
 }
