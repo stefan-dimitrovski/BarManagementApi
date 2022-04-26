@@ -15,6 +15,4 @@ interface OrderRepository : JpaRepository<Order, Long> {
     @Modifying
     @Query("update Order o set o.closedAt = :time where o.id = :orderId")
     fun updateClosedAt(orderId: Long, time: LocalDateTime = LocalDateTime.now())
-
-
 }

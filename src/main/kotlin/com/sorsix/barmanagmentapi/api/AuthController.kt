@@ -5,8 +5,6 @@ import com.sorsix.barmanagmentapi.config.jwt.JwtUtil
 import com.sorsix.barmanagmentapi.dto.LoginDTO
 import com.sorsix.barmanagmentapi.dto.RegisterDTO
 import com.sorsix.barmanagmentapi.service.AuthService
-import org.slf4j.Logger
-import org.slf4j.LoggerFactory
 import org.springframework.http.ResponseEntity
 import org.springframework.security.authentication.AuthenticationManager
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken
@@ -26,14 +24,12 @@ class AuthController(
     val authManager: AuthenticationManager,
     val jwtToken: JwtUtil
 ) {
-    val logger: Logger = LoggerFactory.getLogger(AuthController::class.java)
 
     @PostMapping("/register")
     fun registerUser(
         @RequestBody @Valid registerDto: RegisterDTO,
         request: HttpServletRequest
     ): ResponseEntity<Any> {
-        logger.info("Registering user [{}]", registerDto)
 
         val result = this.authService.createUser(registerDto)
 
@@ -44,7 +40,6 @@ class AuthController(
 
     @PostMapping("/login")
     fun loginUser(@RequestBody loginDTO: LoginDTO): ResponseEntity<Any> {
-        logger.info("Logging user [{}]", loginDTO)
 
         val user = authService.loadUserByUsername(loginDTO.email)
 

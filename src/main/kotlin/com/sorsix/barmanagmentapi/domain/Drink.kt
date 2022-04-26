@@ -23,5 +23,4 @@ data class Drink(
     val category: DrinkCategory,
     @NotNull
     val price: Double,
-
 )

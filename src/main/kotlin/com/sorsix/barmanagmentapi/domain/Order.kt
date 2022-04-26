@@ -29,6 +29,4 @@ data class Order(
     val waiter: User,
     @ManyToMany(fetch = FetchType.EAGER)
     val drinks: List<DrinkInOrder>
-
-
 )

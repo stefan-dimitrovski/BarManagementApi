@@ -28,10 +28,11 @@ class EmployeeController(private val employeeService: EmployeeService) {
     @PutMapping("/add-to-locale")
     fun addEmployeeToLocale(@RequestBody request: EmployeeLocaleDTO): ResponseEntity<Any> {
         val result = this.employeeService.addEmployeeToLocale(request.employeeId, request.localeId)
+
         return if (result) {
             ResponseEntity.ok().build()
         } else {
-            ResponseEntity.badRequest().build()
+            ResponseEntity.badRequest().body("Couldn't save employee to locale")
         }
     }
 }

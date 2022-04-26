@@ -14,6 +14,7 @@ class AuthService(
     private val authRepository: AuthRepository,
     private val passwordEncoder: PasswordEncoderConfig
 ) : UserDetailsService {
+
     private val logger = LoggerFactory.getLogger(AuthService::class.java)
 
     override fun loadUserByUsername(username: String): User? {

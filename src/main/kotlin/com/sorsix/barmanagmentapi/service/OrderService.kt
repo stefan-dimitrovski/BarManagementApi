@@ -4,6 +4,7 @@ import com.sorsix.barmanagmentapi.domain.DrinkInOrder
 import com.sorsix.barmanagmentapi.domain.Order
 import com.sorsix.barmanagmentapi.domain.results.*
 import com.sorsix.barmanagmentapi.repository.*
+import org.slf4j.LoggerFactory
 import org.springframework.stereotype.Service
 import javax.transaction.Transactional
 
@@ -13,9 +14,10 @@ class OrderService(
     private val tableRepository: TableRepository,
     private val authRepository: AuthRepository,
     private val drinkRepository: DrinkRepository,
-    private val drinkInOrderRepository: DrinkInOrderRepository,
+    private val drinkInOrderRepository: DrinkInOrderRepository
+) {
 
-    ) {
+    private val logger = LoggerFactory.getLogger(OrderService::class.java)
 
     fun getAllOrders(): List<Order> = orderRepository.findAll()
 
@@ -53,6 +55,4 @@ class OrderService(
             drinkInOrderRepository.updateQuantity(it.id, quantity)
             DrinkInOrderSuccess
         } ?: DrinkInOrderNotFound
-
-
 }

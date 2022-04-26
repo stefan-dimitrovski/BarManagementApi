@@ -1,6 +1,5 @@
 package com.sorsix.barmanagmentapi.repository
 
-import com.sorsix.barmanagmentapi.domain.Drink
 import com.sorsix.barmanagmentapi.domain.Locale
 import org.springframework.data.jpa.repository.JpaRepository
 import org.springframework.stereotype.Repository
@@ -9,6 +8,4 @@ import org.springframework.stereotype.Repository
 interface LocaleRepository : JpaRepository<Locale, Long> {
 
     fun getLocaleById(id: Long) : Locale?
-
-
 }

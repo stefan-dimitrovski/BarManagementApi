@@ -3,6 +3,7 @@ package com.sorsix.barmanagmentapi.service
 import com.sorsix.barmanagmentapi.domain.User
 import com.sorsix.barmanagmentapi.repository.EmployeeRepository
 import com.sorsix.barmanagmentapi.repository.LocaleRepository
+import org.slf4j.LoggerFactory
 import org.springframework.stereotype.Service
 import javax.transaction.Transactional
 
@@ -11,6 +12,7 @@ class EmployeeService(
     private val employeeRepository: EmployeeRepository,
     private val localeRepository: LocaleRepository
 ) {
+    private val logger = LoggerFactory.getLogger(EmployeeService::class.java)
 
     fun getAllEmployees(): List<User> =
         this.employeeRepository.findByRole()
@@ -20,12 +22,19 @@ class EmployeeService(
 
     @Transactional
     fun addEmployeeToLocale(employeeId: Long, localeId: Long): Boolean {
-        val employee = this.employeeRepository.findById(employeeId).get()
-        val locale = this.localeRepository.findById(localeId).get()
+        val employee = this.employeeRepository.findById(employeeId)
+        val locale = this.localeRepository.findById(localeId)
 
-        employee.worksInLocale = locale
+        return if (!employee.isPresent && locale.isPresent) {
+            false
+        } else {
+            logger.info("Updating user with id: [{}] works in locale with id: [{}] ", employeeId, localeId)
 
-        this.employeeRepository.save(employee)
-        return true
+            this.employeeRepository.updateWorksInLocale(
+                userId = employeeId,
+                localeId = locale.get()
+            )
+            true
+        }
     }
 }
