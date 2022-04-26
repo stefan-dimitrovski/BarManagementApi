@@ -5,6 +5,7 @@ import com.sorsix.barmanagmentapi.domain.User
 import com.sorsix.barmanagmentapi.dto.RegisterDTO
 import com.sorsix.barmanagmentapi.repository.AuthRepository
 import org.slf4j.LoggerFactory
+import org.springframework.dao.DataIntegrityViolationException
 import org.springframework.security.core.userdetails.UserDetailsService
 import org.springframework.stereotype.Service
 
@@ -15,16 +16,27 @@ class AuthService(
 ) : UserDetailsService {
     private val logger = LoggerFactory.getLogger(AuthService::class.java)
 
-    override fun loadUserByUsername(username: String): User? =
-        authRepository.findByEmail(username)
+    override fun loadUserByUsername(username: String): User? {
+        logger.info("Search user by email: [{}]", username)
 
-    fun registerUser(userDto: RegisterDTO): User =
-        authRepository.save(
-            User(
-                email = userDto.email,
-                password = passwordEncoder.passwordEncoder().encode(userDto.password),
-                name = userDto.name,
-                phoneNumber = userDto.phoneNumber,
+        return authRepository.findByEmail(username)
+    }
+
+    fun createUser(registerDTO: RegisterDTO): User? {
+
+        return try {
+            logger.info("Saving user [{}]", registerDTO)
+
+            authRepository.save(
+                User(
+                    email = registerDTO.email,
+                    password = passwordEncoder.passwordEncoder().encode(registerDTO.password),
+                    name = registerDTO.name,
+                    phoneNumber = registerDTO.phoneNumber,
+                )
             )
-        )
+        } catch (ex: DataIntegrityViolationException) {
+            null
+        }
+    }
 }

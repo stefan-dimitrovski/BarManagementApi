@@ -29,23 +29,32 @@ class AuthController(
     val logger: Logger = LoggerFactory.getLogger(AuthController::class.java)
 
     @PostMapping("/register")
-    fun createUser(
+    fun registerUser(
         @RequestBody @Valid registerDto: RegisterDTO,
         request: HttpServletRequest
     ): ResponseEntity<Any> {
-        this.authService.registerUser(registerDto)
-        return ResponseEntity.ok().build()
+        logger.info("Registering user [{}]", registerDto)
+
+        val result = this.authService.createUser(registerDto)
+
+        result?.let {
+            return ResponseEntity.ok().build()
+        } ?: return ResponseEntity.badRequest().body("User with that email already exists")
     }
 
     @PostMapping("/login")
-    fun login(@RequestBody request: LoginDTO): ResponseEntity<LoginResponse> {
-        val auth = this.authManager.authenticate(
-            UsernamePasswordAuthenticationToken(request.email, request.password)
-        )
-        val user = authService.loadUserByUsername(request.email)!!
-        val jwt = jwtToken.generateJwtToken(auth)
+    fun loginUser(@RequestBody loginDTO: LoginDTO): ResponseEntity<Any> {
+        logger.info("Logging user [{}]", loginDTO)
 
-        logger.info("User logged in ${user.email}")
-        return ResponseEntity.ok(LoginResponse(jwt, user.id, user.email, user.name, user.role, user.worksInLocale))
+        val user = authService.loadUserByUsername(loginDTO.email)
+
+        user?.let {
+            val auth = this.authManager.authenticate(
+                UsernamePasswordAuthenticationToken(loginDTO.email, loginDTO.password)
+            )
+            val jwt = jwtToken.generateJwtToken(auth)
+
+            return ResponseEntity.ok(LoginResponse(jwt, user.id, user.email, user.name, user.role, user.worksInLocale))
+        } ?: return ResponseEntity.badRequest().body("User does not exist")
     }
 }
