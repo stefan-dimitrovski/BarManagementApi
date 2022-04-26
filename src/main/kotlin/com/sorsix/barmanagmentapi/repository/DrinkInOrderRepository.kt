@@ -10,7 +10,6 @@ import org.springframework.stereotype.Repository
 @Repository
 interface DrinkInOrderRepository : JpaRepository<DrinkInOrder, Long> {
 
-
     fun findByOrderIdAndDrinkId(orderId: Long, drinkId: Long): DrinkInOrder?
 
     @Modifying

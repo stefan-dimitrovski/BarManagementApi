@@ -10,6 +10,11 @@ VALUES ('manager@test.com', 'Manager', '$2a$10$y35X.5dJGcFz.00jc2QtTujW7BkofmwvJ
        ('waiter@test.com', 'Waiter', '$2a$10$sCRTfjiB5JzuPPftNrHEseKAWHQevGTYvxiRdNtz9lkwZOjOn8t0S', 'waiter',
         'WAITER');
 
+INSERT INTO public.drinks (brand_name, category, price)
+VALUES ('Jameson', 'WHISKEY', 200),
+       ('Absolut', 'VODKA', 180);
+
+
 INSERT INTO public.tables (id, waiter_id)
 VALUES (1, 1),
        (2, null),
@@ -18,6 +23,7 @@ VALUES (1, 1),
        (5, null),
        (6, 1),
        (7, null),
+       (8, null),
        (9, null),
        (10, null),
        (11, null),

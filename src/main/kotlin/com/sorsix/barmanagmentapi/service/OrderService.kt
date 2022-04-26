@@ -14,30 +14,39 @@ class OrderService(
     private val authRepository: AuthRepository,
     private val drinkRepository: DrinkRepository,
     private val drinkInOrderRepository: DrinkInOrderRepository,
+    private val activeOrdersPerWaiterRepository: ActiveOrdersPerWaiterRepository
 
-    ) {
+) {
 
     fun getAllOrders(): List<Order> = orderRepository.findAll()
 
-    fun findOrderById(id: Long): Order? =
-        orderRepository.findById(id).orElseGet(null)
+    fun findOrderById(id: Long): Order? = orderRepository.findById(id).orElseGet(null)
 
     fun getOrderByTableId(tableId: Long): Order? = orderRepository.getOrderByTableId(tableId)
+
+    fun getActiveOrderByTableIdAndWaiterId(tableId: Long, waiterId: Long): Order? =
+        activeOrdersPerWaiterRepository.findByTableIdAndWaiterId(tableId, waiterId)?.let {
+            if (it.closedAt != null) {
+                orderRepository.getById(it.orderId)
+            } else {
+                null
+            }
+        }
+
 
     @Transactional
     fun openOrder(tableId: Long, waiterId: Long): Order {
         val table = tableRepository.findById(tableId).get()
         val waiter = authRepository.findById(waiterId).get()
-        val order = Order(table = table, waiter = waiter) // ,drinks= listOf()
         tableRepository.updateTable(tableId, waiterId)
-        return orderRepository.save(order)
+        return orderRepository.save(Order(table = table, waiter = waiter))
     }
 
-    fun closeOrder(orderId: Long) =
-        this.findOrderById(orderId)?.let {
-            orderRepository.updateClosedAt(orderId)
-            tableRepository.updateTable(it.table.id, null)
-        }
+
+    fun closeOrder(orderId: Long) = this.findOrderById(orderId)?.let {
+        orderRepository.updateClosedAt(orderId)
+        tableRepository.updateTable(it.table.id, null)
+    }
 
 
     fun addDrinkToOrder(orderId: Long, drinkId: Long): DrinkInOrder {
@@ -45,6 +54,7 @@ class OrderService(
         val drink = drinkRepository.getById(drinkId)
         return drinkInOrderRepository.save(DrinkInOrder(order = order, drink = drink))
     }
+
 
     @Transactional
     fun updateQuantityForDrinkInOrder(orderId: Long, drinkId: Long, quantity: Int): DrinkInOrderResult =
