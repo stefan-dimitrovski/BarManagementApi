@@ -16,12 +16,12 @@ VALUES ('Jameson', 'WHISKEY', 200),
 
 
 INSERT INTO public.tables (id, waiter_id)
-VALUES (1, 1),
+VALUES (1, null),
        (2, null),
        (3, null),
        (4, null),
        (5, null),
-       (6, 1),
+       (6, null),
        (7, null),
        (8, null),
        (9, null),

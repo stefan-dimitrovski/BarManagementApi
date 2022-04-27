@@ -4,6 +4,7 @@ import com.sorsix.barmanagmentapi.domain.DrinkInOrder
 import com.sorsix.barmanagmentapi.domain.Order
 import com.sorsix.barmanagmentapi.domain.results.*
 import com.sorsix.barmanagmentapi.repository.*
+import org.slf4j.LoggerFactory
 import org.springframework.stereotype.Service
 import javax.transaction.Transactional
 
@@ -17,22 +18,25 @@ class OrderService(
     private val activeOrdersPerWaiterRepository: ActiveOrdersPerWaiterRepository
 
 ) {
+    private val logger = LoggerFactory.getLogger(OrderService::class.java)
 
-    fun getAllOrders(): List<Order> = orderRepository.findAll()
 
     fun findOrderById(id: Long): Order? = orderRepository.findById(id).orElseGet(null)
 
     fun getOrderByTableId(tableId: Long): Order? = orderRepository.getOrderByTableId(tableId)
 
-    fun getActiveOrderByTableIdAndWaiterId(tableId: Long, waiterId: Long): Order? =
+    fun getActiveOrderByTableIdAndWaiterId(tableId: Long, waiterId: Long): Order? {
         activeOrdersPerWaiterRepository.findByTableIdAndWaiterId(tableId, waiterId)?.let {
-            if (it.closedAt != null) {
-                orderRepository.getById(it.orderId)
+            val activeOrder = it.filter { orders -> orders.closedAt == null }
+            if (activeOrder.isNotEmpty()) {
+                logger.info("FOUND OPENED ORDER WITH tableId:$tableId and waiterId:$waiterId")
+                return orderRepository.getById(activeOrder[0].orderId)
             } else {
-                null
+                logger.warn("ORDER WITH tableId:$tableId and waiterId:$waiterId NOT FOUND. RETURNING NULL!")
+                return null
             }
-        }
-
+        } ?: return null
+    }
 
     @Transactional
     fun openOrder(tableId: Long, waiterId: Long): Order {

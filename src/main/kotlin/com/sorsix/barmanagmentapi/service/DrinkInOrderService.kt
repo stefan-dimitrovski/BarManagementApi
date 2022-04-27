@@ -19,6 +19,10 @@ class DrinkInOrderService(
     fun findByOrderAndDrinkId(orderId: Long, drinkId: Long) =
         drinkInOrderRepository.findByOrderIdAndDrinkId(orderId, drinkId)
 
+
+    fun findAllDrinksInOrder(orderId: Long) = drinkInOrderRepository.findAllByOrderId(orderId)
+
+
     fun createDrinkInOrder(orderId: Long, drinkId: Long, quantity: Int): DrinkInOrder {
         val order = orderRepository.getById(orderId)
         val drink = drinkRepository.getById(drinkId)

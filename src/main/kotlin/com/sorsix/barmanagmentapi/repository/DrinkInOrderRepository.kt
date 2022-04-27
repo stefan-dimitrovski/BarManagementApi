@@ -16,4 +16,6 @@ interface DrinkInOrderRepository : JpaRepository<DrinkInOrder, Long> {
     @Query("Update DrinkInOrder d set d.quantity=:quantity where d.id=:drinkInOrderId")
     fun updateQuantity(drinkInOrderId: Long, quantity: Int)
 
+    fun findAllByOrderId(id: Long): List<DrinkInOrder>
+
 }
