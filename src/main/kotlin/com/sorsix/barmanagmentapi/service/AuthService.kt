@@ -8,6 +8,7 @@ import org.slf4j.LoggerFactory
 import org.springframework.dao.DataIntegrityViolationException
 import org.springframework.security.core.userdetails.UserDetailsService
 import org.springframework.stereotype.Service
+import java.time.LocalDateTime
 
 @Service
 class AuthService(
@@ -34,6 +35,7 @@ class AuthService(
                     password = passwordEncoder.passwordEncoder().encode(registerDTO.password),
                     name = registerDTO.name,
                     phoneNumber = registerDTO.phoneNumber,
+                    dateEmployed = LocalDateTime.now(),
                 )
             )
         } catch (ex: DataIntegrityViolationException) {

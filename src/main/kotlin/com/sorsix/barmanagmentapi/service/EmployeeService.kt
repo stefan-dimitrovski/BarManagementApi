@@ -20,6 +20,15 @@ class EmployeeService(
     fun findEmployeesByName(name: String): List<User> =
         this.employeeRepository.findByName(name.lowercase())
 
+    fun findEmployeesByLocale(localeId: Long): List<User> {
+        val locale = this.localeRepository.findById(localeId)
+
+        if (locale.isPresent) {
+            return this.employeeRepository.findByWorksInLocale(locale = locale.get())
+        }
+        return listOf()
+    }
+
     @Transactional
     fun addEmployeeToLocale(employeeId: Long, localeId: Long): Boolean {
         val employee = this.employeeRepository.findById(employeeId)

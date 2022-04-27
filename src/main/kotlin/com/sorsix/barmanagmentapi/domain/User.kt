@@ -5,6 +5,7 @@ import com.sorsix.barmanagmentapi.domain.enumerations.Role
 import org.springframework.security.core.GrantedAuthority
 import org.springframework.security.core.authority.SimpleGrantedAuthority
 import org.springframework.security.core.userdetails.UserDetails
+import java.time.LocalDateTime
 import javax.persistence.Column
 import javax.persistence.Entity
 import javax.persistence.EnumType
@@ -27,25 +28,35 @@ data class User(
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     val id: Long = 0L,
+
     @NotBlank
     @Email
     @Column(unique = true)
     val email: String,
+
     @NotBlank
     @Size(min = 8, max = 100)
     @JsonIgnore
     private val password: String,
+
     @NotBlank
     @Size(min = 2, max = 100)
     val name: String,
     val phoneNumber: String? = null,
+
+    @NotBlank
+    val dateEmployed: LocalDateTime,
+
     @Enumerated(EnumType.STRING)
     val role: Role = Role.WAITER,
+
     @OneToMany
     val managesLocales: List<Locale>? = null,
+
     @ManyToOne
-    var worksInLocale: Locale? = null
-) : UserDetails {
+    var worksInLocale: Locale? = null,
+
+    ) : UserDetails {
     override fun getAuthorities(): MutableCollection<out GrantedAuthority> =
         mutableListOf(SimpleGrantedAuthority(this.role.toString()))
 

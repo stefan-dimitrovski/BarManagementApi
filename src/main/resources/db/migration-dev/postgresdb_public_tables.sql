@@ -1,9 +1,9 @@
-INSERT INTO public.tables (id,  waiter_id) VALUES (1,  1);
+INSERT INTO public.tables (id,  waiter_id) VALUES (1,  2);
 INSERT INTO public.tables (id,  waiter_id) VALUES (2,  null);
 INSERT INTO public.tables (id,  waiter_id) VALUES (3,  null);
 INSERT INTO public.tables (id,  waiter_id) VALUES (4,  null);
 INSERT INTO public.tables (id,  waiter_id) VALUES (5,  null);
-INSERT INTO public.tables (id,  waiter_id) VALUES (6,  1);
+INSERT INTO public.tables (id,  waiter_id) VALUES (6,  2);
 INSERT INTO public.tables (id,  waiter_id) VALUES (7,  null);
 INSERT INTO public.tables (id,  waiter_id) VALUES (8,  null);
 INSERT INTO public.tables (id,  waiter_id) VALUES (9,  null);

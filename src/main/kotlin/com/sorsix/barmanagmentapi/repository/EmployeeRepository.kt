@@ -19,4 +19,6 @@ interface EmployeeRepository : JpaRepository<User, Long> {
     @Modifying
     @Query("UPDATE User e SET e.worksInLocale = :localeId WHERE e.id = :userId")
     fun updateWorksInLocale(userId: Long, localeId: Locale)
+
+    fun findByWorksInLocale(locale: Locale): List<User>
 }
