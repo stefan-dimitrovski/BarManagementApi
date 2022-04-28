@@ -6,8 +6,8 @@ import com.sorsix.barmanagmentapi.api.requests.OrderRequest
 import com.sorsix.barmanagmentapi.api.response.*
 import com.sorsix.barmanagmentapi.domain.DrinkInOrder
 import com.sorsix.barmanagmentapi.domain.Order
-import com.sorsix.barmanagmentapi.domain.results.DrinkInOrderNotFound
-import com.sorsix.barmanagmentapi.domain.results.DrinkInOrderSuccess
+import com.sorsix.barmanagmentapi.domain.results.OrderViewFailed
+import com.sorsix.barmanagmentapi.domain.results.OrderViewOk
 import com.sorsix.barmanagmentapi.service.DrinkInOrderService
 import com.sorsix.barmanagmentapi.service.OrderService
 import org.springframework.http.ResponseEntity
@@ -57,19 +57,6 @@ class OrderController(
         ResponseEntity.ok(orderService.addDrinkToOrder(orderId = request.orderId, drinkId = request.drinkId))
 
 
-    @PostMapping("/update-quantity")
-    fun updateQuantityForDrinkInOrder(
-        @RequestBody request: DrinkInOrderRequest, @PathVariable tableId: String
-    ): ResponseEntity<Any> {
-        val drinkInOrder = orderService.updateQuantityForDrinkInOrder(
-            orderId = request.orderId, drinkId = request.drinkId, quantity = request.quantity
-        )
-        return when (drinkInOrder) {
-            is DrinkInOrderSuccess -> ResponseEntity.ok().build()
-            is DrinkInOrderNotFound -> ResponseEntity.badRequest().build()
-        }
-    }
-
     @GetMapping("/orderId")
     fun findByOrderAndDrinkId(
         @RequestBody request: OrderIdAndDrinkIdRequest, @PathVariable tableId: String
@@ -85,7 +72,7 @@ class OrderController(
     @PostMapping("/save-drinkInOrder")
     fun saveDrinkInOrder(
         @RequestBody request: OrderIdAndDrinkIdRequest, @PathVariable tableId: String
-    ): ResponseEntity<OrderResponse> {
+    ): ResponseEntity<DrinkInOrderResponse> {
         drinkInOrderService.findByOrderAndDrinkId(request.orderId, request.drinkId)?.let {
             return ResponseEntity.badRequest().body(DrinkInOrderAlreadyExists("Drink already exists in order!", it))
         } ?: kotlin.run {
@@ -98,5 +85,17 @@ class OrderController(
             )
         }
     }
+
+    @GetMapping("/order-info")
+    fun getOrderInfo(
+        @RequestParam(name = "id") orderId: Long, @PathVariable tableId: String,
+    ): OrderViewResponse? {
+        val result = this.orderService.getOrderInfo(orderId)
+        return when (result) {
+            is OrderViewOk -> OrderViewResponse(result.orderViewList, result.totalSum)
+            is OrderViewFailed -> null
+        }
+    }
+
 
 }

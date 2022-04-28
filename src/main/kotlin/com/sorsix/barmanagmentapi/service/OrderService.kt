@@ -5,6 +5,7 @@ import com.sorsix.barmanagmentapi.domain.Order
 import com.sorsix.barmanagmentapi.domain.results.*
 import com.sorsix.barmanagmentapi.repository.*
 import org.slf4j.LoggerFactory
+import org.springframework.data.repository.findByIdOrNull
 import org.springframework.stereotype.Service
 import javax.transaction.Transactional
 
@@ -15,7 +16,8 @@ class OrderService(
     private val authRepository: AuthRepository,
     private val drinkRepository: DrinkRepository,
     private val drinkInOrderRepository: DrinkInOrderRepository,
-    private val activeOrdersPerWaiterRepository: ActiveOrdersPerWaiterRepository
+    private val activeOrdersPerWaiterRepository: ActiveOrdersPerWaiterRepository,
+    private val orderViewRepository: OrderViewRepository
 
 ) {
     private val logger = LoggerFactory.getLogger(OrderService::class.java)
@@ -61,11 +63,17 @@ class OrderService(
 
 
     @Transactional
-    fun updateQuantityForDrinkInOrder(orderId: Long, drinkId: Long, quantity: Int): DrinkInOrderResult =
-        drinkInOrderRepository.findByOrderIdAndDrinkId(orderId, drinkId)?.let {
+    fun updateQuantityForDrinkInOrder(drinkIdInOrderId: Long, quantity: Int): DrinkInOrderResult =
+        drinkInOrderRepository.findByIdOrNull(drinkIdInOrderId)?.let {
             drinkInOrderRepository.updateQuantity(it.id, quantity)
-            DrinkInOrderSuccess
+            DrinkInOrderSuccess(it)
         } ?: DrinkInOrderNotFound
+
+    fun getOrderInfo(orderId: Long): OrderViewResult =
+        this.orderViewRepository.findByOrderId(orderId)?.let { view ->
+            val totalPrice = view.sumOf { it.quantity * it.drinkPrice }.toDouble()
+            OrderViewOk(view, totalPrice)
+        } ?: OrderViewFailed
 
 
 }
