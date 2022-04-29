@@ -59,7 +59,6 @@ class OrderService(
         return drinkInOrderRepository.save(DrinkInOrder(order = order, drink = drink))
     }
 
-
     @Transactional
     fun updateQuantityForDrinkInOrder(drinkIdInOrderId: Long, quantity: Int): DrinkInOrderResult =
         drinkInOrderRepository.findByIdOrNull(drinkIdInOrderId)?.let {
@@ -69,6 +68,5 @@ class OrderService(
 
     fun getTotalSumByOrder(orderId: Long): Double =
         this.totalPriceViewRepository.getTotalPriceByOrderId(orderId) ?: 0.0
-
 
 }

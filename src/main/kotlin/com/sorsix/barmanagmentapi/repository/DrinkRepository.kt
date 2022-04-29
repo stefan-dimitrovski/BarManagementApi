@@ -7,5 +7,4 @@ import org.springframework.stereotype.Repository
 @Repository
 interface DrinkRepository : JpaRepository<Drink, Long> {
 
-    fun getDrinkById(id: Long) : Drink?
 }
