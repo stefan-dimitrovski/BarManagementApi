@@ -17,11 +17,9 @@ class OrderService(
     private val drinkRepository: DrinkRepository,
     private val drinkInOrderRepository: DrinkInOrderRepository,
     private val activeOrdersPerWaiterRepository: ActiveOrdersPerWaiterRepository,
-    private val orderViewRepository: OrderViewRepository
-
+    private val totalPriceViewRepository: TotalPriceViewRepository
 ) {
     private val logger = LoggerFactory.getLogger(OrderService::class.java)
-
 
     fun findOrderById(id: Long): Order? = orderRepository.findById(id).orElseGet(null)
 
@@ -48,7 +46,7 @@ class OrderService(
         return orderRepository.save(Order(table = table, waiter = waiter))
     }
 
-
+    @Transactional
     fun closeOrder(orderId: Long) = this.findOrderById(orderId)?.let {
         orderRepository.updateClosedAt(orderId)
         tableRepository.updateTable(it.table.id, null)
@@ -69,11 +67,8 @@ class OrderService(
             DrinkInOrderSuccess(it)
         } ?: DrinkInOrderNotFound
 
-    fun getOrderInfo(orderId: Long): OrderViewResult =
-        this.orderViewRepository.findByOrderId(orderId)?.let { view ->
-            val totalPrice = view.sumOf { it.quantity * it.drinkPrice }.toDouble()
-            OrderViewOk(view, totalPrice)
-        } ?: OrderViewFailed
+    fun getTotalSumByOrder(orderId: Long): Double =
+        this.totalPriceViewRepository.getTotalPriceByOrderId(orderId) ?: 0.0
 
 
 }

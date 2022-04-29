@@ -7,12 +7,16 @@ VALUES ('Boulevard Phillip the Second of Macedon 14, Skopje 1000', '41.997254665
 INSERT INTO public.users (email, name, password, phone_number, role)
 VALUES ('manager@test.com', 'Manager', '$2a$10$y35X.5dJGcFz.00jc2QtTujW7BkofmwvJccQrmewJYH8gTc.aQkZC', 'manager',
         'MANAGER'),
-       ('waiter@test.com', 'Waiter', '$2a$10$sCRTfjiB5JzuPPftNrHEseKAWHQevGTYvxiRdNtz9lkwZOjOn8t0S', 'waiter',
+       ('waiter1@test.com', 'Waiter', '$2a$10$sCRTfjiB5JzuPPftNrHEseKAWHQevGTYvxiRdNtz9lkwZOjOn8t0S', 'waiter',
+        'WAITER'),
+       ('waiter2@test.com', 'Waiter', '$2a$10$43sjRwzwAVBxiCBmEpWT2eY1ck81n2RIvtRn0ZYyjR6.3OuSjHmo6', 'waiter',
         'WAITER');
+
 
 INSERT INTO public.drinks (brand_name, category, price)
 VALUES ('Jameson', 'WHISKEY', 200),
-       ('Absolut', 'VODKA', 180);
+       ('Absolut', 'VODKA', 180),
+       ('Skopsko', 'BEER', 100);
 
 
 INSERT INTO public.tables (id, waiter_id)

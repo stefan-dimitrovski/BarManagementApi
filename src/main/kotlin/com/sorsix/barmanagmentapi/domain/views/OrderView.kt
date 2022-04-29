@@ -29,7 +29,7 @@ data class OrderView(
     @Column(name = "drink_category")
     val drinkCategory: String,
     @Column(name = "drink_price")
-    val drinkPrice: Int,
+    val drinkPrice: Double,
     @Column(name = "quantity")
     val quantity: Int
 )

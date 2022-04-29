@@ -1,13 +1,12 @@
 package com.sorsix.barmanagmentapi.api
 
+import com.sorsix.barmanagmentapi.api.requests.CloseOrderRequest
 import com.sorsix.barmanagmentapi.api.requests.DrinkInOrderRequest
 import com.sorsix.barmanagmentapi.api.requests.OrderIdAndDrinkIdRequest
-import com.sorsix.barmanagmentapi.api.requests.OrderRequest
+import com.sorsix.barmanagmentapi.api.requests.CreateOrderRequest
 import com.sorsix.barmanagmentapi.api.response.*
 import com.sorsix.barmanagmentapi.domain.DrinkInOrder
 import com.sorsix.barmanagmentapi.domain.Order
-import com.sorsix.barmanagmentapi.domain.results.OrderViewFailed
-import com.sorsix.barmanagmentapi.domain.results.OrderViewOk
 import com.sorsix.barmanagmentapi.service.DrinkInOrderService
 import com.sorsix.barmanagmentapi.service.OrderService
 import org.springframework.http.ResponseEntity
@@ -30,7 +29,7 @@ class OrderController(
 
     @PostMapping("/create-order")
     fun createOrder(
-        @RequestBody request: OrderRequest,
+        @RequestBody request: CreateOrderRequest,
         @PathVariable tableId: Long,
     ): ResponseEntity<OrderResponse> = orderService.getActiveOrderByTableIdAndWaiterId(tableId, request.waiterId)?.let {
         ResponseEntity.ok(
@@ -44,10 +43,10 @@ class OrderController(
         )
     }
 
-    @PutMapping("/{id}")
+    @PutMapping("/close-order{id}")
     fun closeOrder(
-        @PathVariable tableId: Long, @PathVariable id: Long
-    ) = orderService.closeOrder(id)
+        @PathVariable tableId: Long, @RequestBody request: CloseOrderRequest
+    ) = orderService.closeOrder(request.orderId)
 
 
     @PostMapping("/add-drink")
@@ -86,16 +85,10 @@ class OrderController(
         }
     }
 
-    @GetMapping("/order-info")
+    @GetMapping("/total-price")
     fun getOrderInfo(
-        @RequestParam(name = "id") orderId: Long, @PathVariable tableId: String,
-    ): OrderViewResponse? {
-        val result = this.orderService.getOrderInfo(orderId)
-        return when (result) {
-            is OrderViewOk -> OrderViewResponse(result.orderViewList, result.totalSum)
-            is OrderViewFailed -> null
-        }
-    }
+        @RequestParam(name = "orderId") orderId: Long, @PathVariable tableId: String,
+    ): Double = this.orderService.getTotalSumByOrder(orderId)
 
 
 }

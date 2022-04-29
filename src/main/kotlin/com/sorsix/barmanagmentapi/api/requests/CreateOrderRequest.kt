@@ -1,5 +1,5 @@
 package com.sorsix.barmanagmentapi.api.requests
 
-data class OrderRequest(
+data class CreateOrderRequest(
     val waiterId: Long
 )
