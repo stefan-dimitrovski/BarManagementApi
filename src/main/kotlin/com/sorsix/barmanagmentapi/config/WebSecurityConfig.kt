@@ -32,6 +32,7 @@ class WebSecurityConfig(
             .antMatchers("/api/tables/**").hasAnyAuthority("WAITER", "MANAGER")
             .antMatchers("/api/drinks/**").hasAnyAuthority("WAITER", "MANAGER")
             .antMatchers("/api/locales/**").hasAuthority("MANAGER")
+            .antMatchers("/api/analytics/**").hasAuthority("MANAGER")
             .antMatchers("/api/storage/**").hasAuthority("MANAGER")
             .antMatchers("/api/employees/**").hasAuthority("MANAGER")
             .and()
