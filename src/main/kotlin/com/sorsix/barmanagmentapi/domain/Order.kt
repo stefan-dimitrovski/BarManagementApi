@@ -27,6 +27,8 @@ data class Order(
     val table: TableDomain,
     @ManyToOne(fetch = FetchType.EAGER)
     val waiter: User,
-    @ManyToMany(fetch = FetchType.EAGER)
-    val drinks: List<DrinkInOrder>
+//    @ManyToMany(fetch = FetchType.EAGER)
+//    val drinks: List<DrinkInOrder>
+
+
 )

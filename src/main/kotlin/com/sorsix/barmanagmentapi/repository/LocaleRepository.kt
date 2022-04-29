@@ -7,5 +7,5 @@ import org.springframework.stereotype.Repository
 @Repository
 interface LocaleRepository : JpaRepository<Locale, Long> {
 
-    fun getLocaleById(id: Long) : Locale?
+    fun getLocaleById(id: Long): Locale?
 }

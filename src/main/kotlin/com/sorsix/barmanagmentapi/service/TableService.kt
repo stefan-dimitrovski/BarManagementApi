@@ -13,9 +13,5 @@ class TableService(private val tableRepository: TableRepository) {
     fun getTables(): List<Table> = tableRepository.findAll()
 
     fun getTableById(id: Long): Table? = tableRepository.getById(id)
-//
-//    @Transactional
-//    fun updateIsOpen(tableId: Long, waiterId: Long) {
-//        tableRepository.updateTable(tableId, waiterId)
-//    }
+
 }

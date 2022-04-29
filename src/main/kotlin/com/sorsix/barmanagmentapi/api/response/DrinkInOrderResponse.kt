@@ -4,5 +4,5 @@ import com.sorsix.barmanagmentapi.domain.DrinkInOrder
 
 sealed interface DrinkInOrderResponse
 
-data class DrinkInOrderOk (val drinkInOrder: DrinkInOrder) : DrinkInOrderResponse
-data class DrinkInOrderError (val message: String) : DrinkInOrderResponse
+data class DrinkInOrderOk(val drinkInOrder: DrinkInOrder) : DrinkInOrderResponse
+data class DrinkInOrderAlreadyExists(val message: String, val drinkInOrder: DrinkInOrder) : DrinkInOrderResponse
