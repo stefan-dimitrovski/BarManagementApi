@@ -10,6 +10,10 @@ class AnalyticsService(
     private val localeService: LocaleService,
 ) {
 
+    fun getDrinksByPopularity(): List<Any> {
+        return listOf()
+    }
+
     fun getEmployeeNumbersByLocale(): MutableList<EmployeesInLocalesAnalytics> {
         val locales = localeService.getAllLocales()
 

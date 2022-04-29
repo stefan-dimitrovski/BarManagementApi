@@ -16,4 +16,8 @@ class AnalyticsController(private val analyticsService: AnalyticsService) {
     @GetMapping("/employees-in-locales")
     fun getEmployeesWorkingInLocales(): ResponseEntity<MutableList<EmployeesInLocalesAnalytics>> =
         ResponseEntity.ok(analyticsService.getEmployeeNumbersByLocale())
+
+    @GetMapping("/drinks-by-popularity")
+    fun getDrinksByPopularity(): Any =
+        ResponseEntity.ok(analyticsService.getDrinksByPopularity())
 }
