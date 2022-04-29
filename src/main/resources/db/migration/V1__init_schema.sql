@@ -27,6 +27,7 @@ create table users
     phone_number       varchar(255),
     role               varchar(255),
     works_in_locale_id bigint,
+    date_employed      timestamp,
 
     constraint fk_locale foreign key (works_in_locale_id) references locales (id)
 
