@@ -1,25 +1,25 @@
-INSERT INTO public.locales (address, lat, lng, name)
+INSERT INTO locales (address, lat, lng, name)
 VALUES ('Boulevard Phillip the Second of Macedon 14, Skopje 1000', '41.9972546654559', '21.418529735959524',
         'Old City House'),
        ('1-vi Maj Boulevard b.b, Bitola 7000', '41.030889', '21.333390', 'Bakery Boulevard');
 
 
-INSERT INTO public.users (email, name, password, phone_number, role)
+INSERT INTO users (email, name, password, phone_number, role, date_employed)
 VALUES ('manager@test.com', 'Manager', '$2a$10$y35X.5dJGcFz.00jc2QtTujW7BkofmwvJccQrmewJYH8gTc.aQkZC', 'manager',
-        'MANAGER'),
+        'MANAGER', now()),
        ('waiter1@test.com', 'Waiter', '$2a$10$sCRTfjiB5JzuPPftNrHEseKAWHQevGTYvxiRdNtz9lkwZOjOn8t0S', 'waiter',
-        'WAITER'),
+        'WAITER', now()),
        ('waiter2@test.com', 'Waiter', '$2a$10$43sjRwzwAVBxiCBmEpWT2eY1ck81n2RIvtRn0ZYyjR6.3OuSjHmo6', 'waiter',
-        'WAITER');
+        'WAITER', now());
 
 
-INSERT INTO public.drinks (brand_name, category, price)
+INSERT INTO drinks (brand_name, category, price)
 VALUES ('Jameson', 'WHISKEY', 200),
        ('Absolut', 'VODKA', 180),
        ('Skopsko', 'BEER', 100);
 
 
-INSERT INTO public.tables (id, waiter_id)
+INSERT INTO tables (id, waiter_id)
 VALUES (1, null),
        (2, null),
        (3, null),

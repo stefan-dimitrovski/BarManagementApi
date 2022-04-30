@@ -14,7 +14,6 @@ import javax.persistence.GeneratedValue
 import javax.persistence.GenerationType
 import javax.persistence.Id
 import javax.persistence.ManyToOne
-import javax.persistence.OneToMany
 import javax.persistence.Table
 import javax.validation.constraints.Email
 import javax.validation.constraints.NotBlank
@@ -49,9 +48,6 @@ data class User(
 
     @Enumerated(EnumType.STRING)
     val role: Role = Role.WAITER,
-
-    @OneToMany
-    val managesLocales: List<Locale>? = null,
 
     @ManyToOne
     var worksInLocale: Locale? = null,
