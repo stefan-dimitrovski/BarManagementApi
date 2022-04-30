@@ -13,7 +13,7 @@ class DrinksController(val drinkService: DrinkService) {
     fun getDrinks(): List<Drink> = drinkService.getAllDrinks()
 
 
-    @GetMapping
+    @GetMapping("search")
     fun getDrinksByName(@RequestParam q: String?): List<Drink> =
         q?.let {
             this.drinkService.findDrinksByName(q)
