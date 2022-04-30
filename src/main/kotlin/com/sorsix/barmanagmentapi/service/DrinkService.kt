@@ -7,5 +7,9 @@ import org.springframework.stereotype.Service
 @Service
 class DrinkService(private val drinkRepository: DrinkRepository) {
 
-    fun getAllDrinks(): List<Drink> = drinkRepository.findAll()
+    fun findDrinksByName(name: String): List<Drink> =
+        this.drinkRepository.findByName(name.lowercase())
+
+    fun getAllDrinks(): List<Drink> =
+        this.drinkRepository.findAll()
 }

@@ -7,7 +7,6 @@ create table locales
     name    varchar(255)     not null
 );
 
-
 create table drinks
 (
     id         bigserial primary key,
