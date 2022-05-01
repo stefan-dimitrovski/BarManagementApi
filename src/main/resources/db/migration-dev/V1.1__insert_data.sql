@@ -1,15 +1,15 @@
 INSERT INTO locales (address, lat, lng, name)
 VALUES ('Boulevard Phillip the Second of Macedon 14, Skopje 1000', '41.9972546654559', '21.418529735959524',
         'Old City House'),
-       ('1-vi Maj Boulevard b.b, Bitola 7000', '41.030889', '21.333390', 'Bakery Boulevard');
+       ('1-vi Maj Boulevard b.b, Bitola 7000', '41.030889', '21.333390', 'Rock Pub');
 
 
 INSERT INTO users (email, name, password, phone_number, role, date_employed)
-VALUES ('manager@test.com', 'Manager', '$2a$10$y35X.5dJGcFz.00jc2QtTujW7BkofmwvJccQrmewJYH8gTc.aQkZC', 'manager',
+VALUES ('manager@test.com', 'Manager', '$2a$10$y35X.5dJGcFz.00jc2QtTujW7BkofmwvJccQrmewJYH8gTc.aQkZC', '077-777-777',
         'MANAGER', now()),
-       ('waiter1@test.com', 'Waiter', '$2a$10$sCRTfjiB5JzuPPftNrHEseKAWHQevGTYvxiRdNtz9lkwZOjOn8t0S', 'waiter',
+       ('waiter1@test.com', 'Waiter', '$2a$10$sCRTfjiB5JzuPPftNrHEseKAWHQevGTYvxiRdNtz9lkwZOjOn8t0S', '071-111-222',
         'WAITER', now()),
-       ('waiter2@test.com', 'Waiter', '$2a$10$43sjRwzwAVBxiCBmEpWT2eY1ck81n2RIvtRn0ZYyjR6.3OuSjHmo6', 'waiter',
+       ('waiter2@test.com', 'Waiter', '$2a$10$43sjRwzwAVBxiCBmEpWT2eY1ck81n2RIvtRn0ZYyjR6.3OuSjHmo6', '075-223-305',
         'WAITER', now());
 
 
