@@ -1,0 +1,13 @@
+spring:
+  datasource:
+      url: jdbc:postgresql://localhost:8081/postgresdb
+      username: postgres
+      password: postgres123
+  jpa:
+    show-sql: true
+    hibernate:
+      ddl-auto: validate
+  flyway:
+    locations:
+      - classpath:db/migration
+      - classpath:db/migration-dev
